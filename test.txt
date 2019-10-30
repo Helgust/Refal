@@ -1,0 +1,10 @@
+TEXTREV START
+ extrn CARD
+ entry GO
+
+go = <f <CARD 'ENTER EXPRESSION... '> >
+
+f S2e1 = <f e1 >S2
+     S2=S2
+       =
+ end
