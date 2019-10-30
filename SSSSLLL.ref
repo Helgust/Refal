@@ -1,0 +1,259 @@
+DIALOG start
+ entry go
+ extrn NUMB, SYMB, OPNGET, LIBGET, CLSGET
+ extrn ADD, DR, SUB, PRINT, CARD, MUL, DIV
+ extrn CP, DG, BR, RP, DGALL
+ 
+ 
+
+*The representation of numeric fractions with not calculated expression
+* for example, 1/(2+3) = 1/5
+*Fract S '+-/*()'
+ 
+ 
+
+*standart operations of MIN, MAX and the greatest general divisor(the Euclidean algorithm approach) of two numbers
+MAX (e1)e2 = <M (e1)e2 (<SUB (e1)e2>)>
+M (e1)e2('-'e3) = e2
+  (e1)e2(e3) = e1
+MIN (e1)e2 = <MN (e1)e2 (<SUB (e1)e2>)>
+MN (e1)e2('-'e3) = e1
+  (e1)e2(e3) = e2
+NOD (e1)e1 = e1
+    (e1)e2 = <NOD (<MIN (e1)e2>) <SUB (<MAX(e1)e2>)<MIN (e1)e2>>>
+    
+    
+*operations with numeric fractions
+mul_d ('-'s(N)1'/'s((/0/)N)2)s(N)3'/'s((/0/)N)4 = '-' <reduce <MUL (s1)s3>'/'<MUL (s2)s4>>
+      (s(N)1'/'s((/0/)N)2)'-'s(N)3'/'s((/0/)N)4 = '-' <reduce <MUL (s1)s3>'/'<MUL (s2)s4>>
+      (e5 s(N)1'/'s((/0/)N)2)e5 s(N)3'/'s((/0/)N)4 = <reduce <MUL (s1)s3>'/'<MUL (s2)s4>>
+       e1 = <PRINT 'ERROR mul_d'e1 >
+div_d ('-'s(N)1'/'s((/0/)N)2)s(N)3'/'s((/0/)N)4 = '-' <reduce <MUL (s1)s4>'/'<MUL (s2)s3>>
+      (s(N)1'/'s((/0/)N)2)'-'s(N)3'/'s((/0/)N)4 = '-' <reduce <MUL (s1)s4>'/'<MUL (s2)s3>>
+      (e5 s(N)1'/'s((/0/)N)2)e5 s(N)3'/'s((/0/)N)4 = <reduce <MUL (s1)s4>'/'<MUL (s2)s3>>
+      e1 = <PRINT 'ERROR div_d' e1>
+add_d ('-' s(N)1'/'s((/0/)N)2)'-'s(N)3'/'s((/0/)N)4 =  <reduce <ADD ('-'<MUL(s1)s4>)'-'<MUL (s2)s3>>'/'<MUL (s2)s4>>
+      ('-' s(N)1'/'s((/0/)N)2)s(N)3'/'s((/0/)N)4 = <reduce <ADD ('-'<MUL(s1)s4>)<MUL (s2)s3>>'/'<MUL (s2)s4>>
+      (s(N)1'/'s((/0/)N)2)'-'s(N)3'/'s((/0/)N)4 =  <reduce <ADD (<MUL(s1)s4>)'-'<MUL (s2)s3>>'/'<MUL (s2)s4>>
+      (e5 s(N)1'/'s((/0/)N)2)e5 s(N)3'/'s((/0/)N)4 = <reduce <ADD (<MUL(s1)s4>)<MUL (s2)s3>>'/'<MUL (s2)s4>>
+      e1 = <PRINT 'ERROR add_d' e1>
+sub_d ('-'s(N)1'/'s((/0/)N)2)'-'s(N)3'/'s((/0/)N)4 = <reduce <ADD ('-'<MUL(s1)s4>)<MUL (s2)s3>>'/'<MUL (s2)s4>>
+      ('-'s(N)1'/'s((/0/)N)2)s(N)3'/'s((/0/)N)4 = <reduce <SUB ('-'<MUL(s1)s4>)<MUL (s2)s3>>'/'<MUL (s2)s4>>
+      (s(N)1'/'s((/0/)N)2)'-'s(N)3'/'s((/0/)N)4 = <reduce <SUB (<MUL(s1)s4>)'-'<MUL (s2)s3>>'/'<MUL (s2)s4>>
+      (e5 s(N)1'/'s((/0/)N)2)e5 s(N)3'/'s((/0/)N)4 = <reduce <SUB (<MUL(s1)s4>)<MUL (s2)s3>>'/'<MUL (s2)s4>>
+      e1 = <PRINT 'ERROR sub_d' e1>
+      
+parse_dr '-'e1'/'e2 = '-'<NUMB e1>'/'<NUMB e2>
+         e1'/''-'e2 = '-'<NUMB e1> '/' <NUMB e2>
+            e1'/'e2 = <NUMB e1> '/' <NUMB e2>
+            e1 = <PRINT 'ERROR' e1>
+            
+reduce '-'s((/0/)N)A'/'s(N)B ='-' <DIV (sA) <NOD (sA)sB>>'/'<DIV (sB)<NOD (sA)sB>>
+          s((/0/)N)A'/'s(N)B = <DIV (sA) <NOD (sA)sB>>'/'<DIV (sB)<NOD (sA)sB>>
+          e('+-')1/0/'/'sB = /0/'/'/1/
+          e1 = <PRINT 'ERROR' e1>
+   
+*brackets to the expression
+fsk e1')'e2 = <fsk <fsk2 e1> e2>
+    e1'('e2 = <PRINT 'ERROR' e1'('e2>
+    e1 = e1
+fsk2 R e1'('e2 = e1(e2)
+       e1 = <PRINT 'ERROR' e1>
+ 
+*calculate expressions 
+expression e1 = <fv <fsk e1>>
+
+fv R '+'e1 = <fv e1>
+     v1s('+-')Av2 = <fz1 sA (<fv v1>) <fv v2>> 
+     v1 = <fs v1>
+fs R e1s('/*')Ae2 = <fz2 sA (<fm e1>) <fm e2>>
+     e1 = <fm e1>
+fm  s('-')A(e1) = <fz2 '*' ('-'/1/'/'/1/) <fv e1>>
+    (e1) = <fv e1>
+    s('-')2e(D)1 = s2 <NUMB e1>'/'/1/
+    e('+-')3e(D)1 = e3<NUMB e1> '/' /1/
+    e('+-')3e(N)1 = e3e1'/'/1/
+    e1 = <PRINT 'ERROR fm' e1>
+    
+fz1 '+' (e1)e2 = <add_d (e1)e2>
+    '-' (e1)e2 = <sub_d (e1)e2>
+    e1 = <PRINT 'ERROR fz1' e1>
+fz2 '*' (e1)e2 = <mul_d (e1)e2>
+    '/' (e1)e2 = <div_d (e1)e2>
+     e1 = <PRINT 'ERROR fz2' e1>
+
+
+*work with the equations: reduction, canonical form and etc
+
+compute_and_parse e1 =  <put_it_br <del_min <coefficients <fsk e1>>>>
+doing_all e1 = <del_zeros <free_numb <check_sign <the_same <compute_and_parse e1 >>>>>
+doing_min e1 =<del_zeros <del_min <free_numb <del_min <the_same e1>>>>>
+check_sign '-'(e1)e2 = '+'('-'e1) <check_sign e2>
+           e1'-'(e3)e2 = e1'+'('-'e3)<check_sign e2>
+           e1 = e1
+negative  e1(e2)e3 = e1(<neg_num e2>)<negative e3>
+          e1 = e1
+neg_num '-'e1 = e1
+         e1 = '-'e1
+the_same e('+-')1(e2)s(L)Ae3 s('+-')B(e4)sAe5 = <the_same (<expression e1e2sBe4>)sAe3e5>
+         e6s('+-')C(e2)s(L)Ae3 s('+-')B(e4)sAe5 = <the_same (<expression sCe2sBe4>)sA'+'e6e3e5>
+         e1 = e1
+put_it_br e('+-')1s(N)A'/'s(N)Bs(L)Ce2 = e1 (sA'/'sB)sC <put_it_br e2>
+          e('+-')1s(N)A'/'s(N)Be2 = e1 (sA'/'sB) <put_it_br e2>
+          e1 = e1
+del_zeros e1 (e('-')2 /0/e3)S(L)Ae4 = <del_zeros e1e4>
+          e1 = e1
+del_min '+'e1 = <del_min e1>
+        e1'+-'e2 = <del_min e1'-'e2>
+        e1'-+'e2 = <del_min e1'-'e2>
+        e1s('+-')AsAe2 = <del_min e1'+'e2>
+        e1 = e1
+reduce_terms  e1s(L)A = <expression e1> sA
+              v1 = <expression v1>
+              e1 = e1
+coefficients e1s('+-')Be2 = <reduce_terms e1> sB <coefficients e2> 
+              v1 = <reduce_terms v1>
+              e1 = e1
+free_numb e6 e('+-')1(e2)s((L))Ae3s('+-')C(e4)s('+-')De5 = <free_numb e6'+'e3sDe5'+'(<expression e1e2sCe4>)>
+          e6 e('+-')1(e2)s('+-')C(e4)s((L))Be5 = <free_numb e6'+'sBe5'+'(<expression e1e2sCe4>)>
+          e6 e('+-')1(e2)s((L))Ae3s('+-')C(e4) = <free_numb e6'+'sAe3'+'(<expression e1e2sCe4>) >
+          e6 e('+-')1(e2)s('+-')C(e4) = <free_numb e6'+'(<expression e1e2sCe4>)>
+          e1 = e1
+
+equal e1'='e2 = <del_min <doing_all <doing_all e1>'+'<negative <doing_all e2>>>>
+      e1 = e1
+div_expression (e1)'*'(e2)s(L)As('+-')D e3 = (<div_d (e2)e1>)sAsD<div_expression (e1)'*'e3>
+               (e1)'*'(e2)s('+-')Ae3 = (<div_d (e2)e1>)sA<div_expression (e1)'*'e3>
+               (e1)'*'(e2) = (<div_d (e2)e1>)
+                e1 = e1
+mul_expression (e1)'*'(e2)s(L)As('+-')D e3 = (<mul_d (e2)e1>)sAsD <mul_expression (e1)'*'e3>
+               (e1)'*'(e2)s('+-')Ae3 = (<mul_d (e2)e1>)sA <mul_expression (e1)'*'e3>
+               (e1)'*'(e2) = (<mul_d (e2)e1>)
+                e1 = e1
+check_right  e('+')1('-'s((/0/)N)Ae2) = '!N'
+             e('+')1(s((/0/)N)Ae2) = '!N'
+             e1 = 
+from_equal e1 = <find_variable <equal e1>>             
+
+find_variable e1e('+-')3(e2)s(L)Ae4 = sA'='<del_min <div_expression (e2)'*' <del_min <check_sign <negative e1e4>>>>>
+              v1 = <check_right <del_min <free_numb v1>>>
+              e1 = 
+exec e1 '|' e2 = <equal e1>'|'<exec e2>
+     e1 =  <from_equal e1>
+exec_eq R e1 '|' e2 = <exec_eq e1>'|'<equal e2>
+        e1 =  
+delete_first '|'e1 = e1
+         e1 = e1
+insert_elem  R e1'|'s(L)A'='e2 = <insert_one_var  e1 '&'(sA'**'e2)>
+
+insert_expression e1(e3)s(L)Ae2 '%'(s(L)A'**'e5) = e1 <mul_expression (e3)'*'e5> e2
+                  e1(e3)s(L)Ae2 '%'(s(L)B'**'e5) = e1(e3)sAe2
+                  e1'%'(e2) = e1
+                  e1 = e1
+insert_one_var  R e1'|'e2 '&'(s(L)A'**'e5) =  <insert_one_var e1 '&' (sA'**'e5) >'|' <doing_min <insert_expression e2'%' (sA'**'e5) >>
+                  e1 '&'(s(L)A'**'e5) =<doing_min <insert_expression e1'%'(sA'**'e5)>> 
+                  e1 = e1
+insert_number e1(e2)s(L)Ae3'%'(sA'**'(e4)) = <free_numb <del_min e1(<mul_d (e2) e4>)e3>>
+              e1s(L)Ae2 '%'(s(L)Be3) = e1sAe2
+*e1s(L)Ae2 '%'(s(L)Be3) = <find_variable e1sAe2>
+              
+decision e1 = <insert_elem <exec e1>>
+
+search e1'|'e2 = <search <check_zeroes <decision e1'|'e2>>>
+       e1 = <find_variable e1>
+check_zeroes e4'|'(e('-')5/0/e2)e(L)3'|'e1 = <check_zeroes e4'|'e1>
+                (e('-')5/0/e2)e(L)3'|'e1 = <check_zeroes e1>
+                e1'|'(e('-')5/0/e2)e(L)3 = <check_zeroes e1>
+                               e1 = e1
+our_value '!N'e1 = '!N'
+          e1'|'e2 = <delete_first <exec_eq e1'|'e2>>'*'(<search e1'|'e2>)
+          v1 = <find_variable <equal v1>>
+          e1 = e1
+from_our_value '!N'e1 = '!N'
+               e1'|'e2 = <search e1'|'e2>
+               v1 = <find_variable <equal v1>>
+               e1 = e1
+change_variable   e1('!N') = '!N' 
+               R  e1'|'e3 '*'(s(L)A'='(e2)) = <change_variable e1'*'(sA'='(e2))> '|' <doing_min <insert_number e3'%' (sA'**'(e2))>>
+               R  e1'|'e3 '*'(s(L)A'='e2) = <change_variable e1'*'(sA'='e2)> '|' <doing_min <insert_expression e3'%' (sA'**'e2)>>
+                  e1 '*'(s(L)A'='(e5)) = <doing_min <insert_number e1'%'(sA'**'(e5))>>
+                  e1 '*'(s(L)A'='e5) = <doing_min <insert_expression e1'%'(sA'**'e5)>>
+                  v1'*'() = v1
+                  e1 = e1
+
+              
+find_one  '!N'e1 = '!N'
+          e1'|'e2 =  <from_our_value e1'|'e2> '#' <find_one <pusk e1'|'e2>>
+          s(L)A'='e2 = sA'='e2 
+          v1 = <find_variable <equal v1>> 
+           e1 = 
+           
+pusk '!N'e1 = '!N'
+       v1 = <change_variable <our_value v1>>
+        =
+good_output e1'!N'e2 = <DGALL> <beauty_output '!N'>
+            e1'#'e2 = <beauty_output e1> <good_output e2>
+            e1 = <beauty_output e1> <pr_free_var <DG 'var'>> <PRINT 'END!'>
+            
+del_zeros_for_print e1'+'(e('-')2/0/e3)S(L)Ae4 = <del_zeros_for_print e1e4>
+                    e1'+'(e('-')2/0/e3)'+'e4 = <del_zeros_for_print e1'+'e4>
+                    e1'+'(e('-')2/0/e3) = <del_zeros_for_print e1>
+                    e1 = e1
+beauty_output e2'!N' e1 = <PRINT 'NO DECISIONS'> <PRINT 'END!'>
+              s(L)A'='(e('-')1/0/e2) = <PRINT sA'='/0/>
+              s(L)A'='(e('-')1s(N)B'/'/1/) = <PRINT sA'='e1sB>
+              s(L)A'='(e2) = <PRINT sA'='e2>
+              s(L)A'='e1 = <PRINT sA'='<for_print e1>>
+                         = 
+
+for_print R e1'+'e2 = <for_print e1><modify '+'e2>
+          v1 = <modify v1>
+             =
+             
+modify e4(e('-')1/0/e2)e3 = 
+       e('+')4(e('-')1s(N)A'/'/1/)e2 = e4(e('-')1sA)e2
+       '+'(e1)e2 = '+'(e1)e2
+           e1 = e1
+                          = 
+pr_free_var v1 = <PRINT v1' --- FREE VARIABLE(S)'>
+               = <DGALL>
+put_to_kop e2s(L)Ae2'^'() = <put_to_kop e2 '^'(sA)>
+           e1s(L)Ae2 '^'(e3sAe4) = <put_to_kop e1e2 '^'(e3sAe4)>
+           e1s(L)Ae2 '^'  (e3) = <put_to_kop e2'^'(e3sA)>
+           e1'^'(e2) = <BR 'var='e2>
+
+put  '!N' = '!N'
+     s(L)A'='e2 = <BR sA'='e2> <del_set (sA)<DG 'var'>>
+      =
+put_all e1'#'e2 = <put e1> <put_all e2>
+              v1 = <put v1>
+                 =
+del_set (sA)e1sAe2 = <BR 'var='e1e2>
+       
+start_to_search e1 = <put_to_kop e1'^'()> <find_one e1>
+check_eq s(L)A'='(e2) = sA'='(e2)
+         s(L)A'='e2 = sA'=' <doing_min <reduce_not_free e2'&'(<CP 'var'>)>>
+           e1 = e1
+reduce_not_free e1(e2)s(L)Ae3 '&'(e4sAe5) = <reduce_not_free e1'&'(e4sAe5)> (e2)sA <reduce_not_free e3'&'(e4sAe5)>
+                e1(e2)s(L)Ae3'&'(e4) = e1 <insert_expression(e2)sA'%'(sA'**'<CP sA>)> <reduce_not_free e3'&'(e4)>
+                e1'&'(e2) = e1
+start_checking e2'!N'e1 = '!N'
+               '1'e1 = <put_all e1> <start_checking e1> 
+                '#'e1 = <start_checking e1>
+               e1 '#' e2 =  <check_eq e1> '#'<start_checking e2>
+               v1 =  <check_eq v1>
+                  = 
+clean e1 = 
+read_from_file  e1 = <reading <OPNGET e1>'@'<LIBGET>>
+reading '@'e1 = <reading <LIBGET>>
+        R v1';'e2 = v1'|'<reading <LIBGET>>
+        R v1'.'e2 = v1
+going e1 =  <start_checking '1'<start_to_search <read_from_file e1>>>       
+go = <main>
+main  = <good_output <going  <CARD 'input the text file name: '>>> <CLSGET>
+*<pusk <read_from_file <CARD 'the input: '>>> <CLSGET>
+*<good_output <going <CARD 'input the text file name: '>>> <CLSGET>
+*<read_from_file <CARD>>
+    
+ end
+

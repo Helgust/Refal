@@ -1,0 +1,161 @@
+IVANB START
+ EXTRN CARD, PRINT, M1, P1, NUMB, OPNGET, CLSGET, LIBGET, DIV, MUL, SUB, ADD, PROUT
+ ENTRY GO
+ 
+GO = <OPNGET 'input.txt'><PRINT 'RESULT: '<fout <PRINT <freduce <PRINT <fflatten <PRINT <finput <fpar1 <PRINT <fget <LIBGET>>>>>>>>>>>><CLSGET>
+
+*GO = <PRINT <fflatten <fpar1 <CARD>>>>
+
+fget e(DL'+-*/()^:')1 e((DL'+-*/()^:'))2 = e1
+
+fpar1 e1 ')' e2 = <fpar1 <fpar2 e1> e2>
+ e1 '(' e2 = <PRINT 'Error: not enough closing parenthesis'>
+ e1 = e1
+
+fpar2 R e1 '(' e2 = e1 (e2)
+ e3 = <PRINT 'Error: not enought opening parenthesis'>
+ 
+ 
+finput 'D' vv ':' e1 = <fadd (vv) <fsign e1>>
+ e1 = 'Error: incorrect input format'
+ 
+fsign s('+-')a e1 = sa e1
+ e1 = '+'e1
+ 
+fadd (vv) s('+-')a e1 w(('^'))c s('+-')b e2 = sa <fdif (sa)<fmul (vv) e1 wc>> <fadd (vv) sb e2>
+ (vv) s('+-')a e1  = sa <fdif (sa)<fmul (vv) e1>>
+ e1 = 'Error: add 'e1
+ 
+fmul (vv) v1 '*' v2 = <fdisplay (vv) v1> '*' <fmul (vv) v2>
+ (vv) v1 '/' v2 = <fdisplay (vv) v1> '*' <PRINT <fmul (vv) <PRINT <fchdeg v2>>>>
+ (vv) v1 = <fdisplay (vv) v1>
+ e1 = 'Error: mul'
+ 
+fdisplay (vv) v1 (v2) '^' e('+-')3 v4 = ((vv) (/1/) (v1) (v2) (e3 <NUMB v4>))
+ (vv) v1 (v2) = ((vv) (/1/) (v1) (v2) (/1/))
+ (vv) v1 '^' e('+-')2 v3  = ((vv) (/1/) (v1) ('!') (e2 <NUMB v3>))
+ (vv) v(D)1 = <PROUT 'HERE'>((vv)(<NUMB v1>)('!')('!')(/1/))
+ (vv) v1 = ((vv) (/1/) (v1) ('!') (/1/))
+ 
+fchdeg v1 s('*/')a v2 = <fchdeg1 v1> sa v2
+ v1 = <fchdeg1 v1>
+ 
+fchdeg1 v1 '^' e('+-')2 v3 = v1 '^' <fchsig e2 '-'> v3
+ v1 = v1 '^-1'
+
+
+fchsig '++' = '+'
+ '+-' = '-'
+ '-+' = '-'
+ '--' = '+'
+ e1 = e1
+ 
+fdif (sa) v1 '*' v2 = (<fdif1 v1> '*' v2 sa v1 '*' <fdif (sa) v2>)
+ (e0) v1 = <fdif1 v1>
+ 
+fdif1 ((v1)(v2)(v1)('!')(v3)) = ((v1)(<MUL (v2) v3>)(v1)('!')(<SUB (v3) /1/>))
+ ((v1)(v2)(s(L)3)('!')(v4)) = ((v1)(/0/)('!')('!')(<SUB (v4) /1/>))
+ ((v1)(v2)('!')('!')(v4)) = ((v1)(/0/)('!')('!')(<SUB (v4) /1/>))
+ ((v1)(v2)((v3))('!')(v4)) = ((v1)(<MUL (v2) v4>)((v3))('!')(<SUB (v4) /1/>)) '*' (<fadd (v1) <fsign v3>>)
+ ((v1)(v2)(v3)(v4)(v5)) = ((v1)(<MUL (v2) v5>)(v3)(v4)(<SUB (v5) /1/>)) '*' <fdif2 ((v1)(/1/)(v3)(v4)(/1/))> '*' (<fadd (v1) <fsign v4>>)
+ e1 = 'Error: undefined operation in ' e1
+ 
+fdif2 ((v1)(v2)('cos')(v3)(v4)) = ((v1)(<MUL ('-'/1/) v2>)('sin')(v3)(v4))
+ ((v1)(v2)('sin')(v3)(v4)) = ((v1)(v2)('cos')(v3)(v4))
+ ((v1)(v2)('ln')(v3)(v4)) = ((v1)(v2)(v3)('!')(<MUL ('-'/1/) v4>))
+ ((v1)(v2)('exp')(v3)(v4)) = ((v1)(v2)('exp')(v3)(v4))
+ ((v1)(v2)('sqrt')(v3)(v4)) = ((v1)(v2)('0.5sqrt')(v3)(<MUL ('-'/1/) v4>))
+ ((v1)(v2)('arcsin')(v3)(v4)) = ((v1)(v2)('sqrt')('1-'(v3)'^2')(<MUL ('-'/1/) v4>))
+ ((v1)(v2)('arccos')(v3)(v4)) = ((v1)(<MUL ('-'/1/) v2>)('sqrt')('1-'(v3)'^2')(<MUL ('-'/1/) v4>))
+ e1 = 'Error: cant define function ' e1
+
+fflatten e1 e('+-')2 v(('+-'))3 '*' (e('+-')4  v(('+-'))5  s('+-')6 v7) = <fflatten e1 <fchsig e2 e4> v3 '*' v5 <fchsig e2 s6> v3 '*' (v7)>
+ e1 e('+-')2 v(('+-'))3 '*' (e('+-')4  v(('+-'))5  s('+-')6 v7) s('+-')8 e9 = <fflatten e1 <fchsig e2 e4> v3 '*' v5 <fchsig e2 s6> v3 '*' (v7) s8 e9>
+ e1 e('+-')2 v(('+-'))3 '*' (e('+-')4  v(('+-'))5  s('+-')6 v7) '*' v(('+-'))8 s('+-')9 ea = <fflatten e1 <fchsig e2 e4> v3 '*' v5 '*' v8 <fchsig e2 s6> v3 '*' (v7) '*' v8 s9 ea>
+ e1 e('+-')2 v(('+-'))3 '*' (e('+-')4  v(('+-'))5  s('+-')6 v7) '*' v8 = <fflatten e1 <fchsig e2 e4> v3 '*' v5 '*' v8 <fchsig e2 s6> v3 '*' (v7) '*' v8>
+ e1 e('+-')2 ( e('+-')3  v(('+-'))4  s('+-')5 v6) '*' v(('+-'))7 s('+-')8 e9 = <fflatten e1 <fchsig e2 e3> v4 '*' v7 <fchsig e2 s5> (v6) '*' v7 s8 e9>
+ e1 e('+-')2 (e('+-')3 v(('+-'))4 s('+-')5 v6) '*' v7 = <fflatten e1 <fchsig e2 e3> v4 '*' v7 <fchsig e2 s5> (v6) '*' v7>
+ e1 ( e('+-')a ((v2)(v3)(v4)(v5)(v6)) ) e7 = <fflatten e1 ((v2)(<MUL (v3) <fnumsig ea>>)(v4)(v5)(v6)) e7>
+ e1 e('+-')a (e('+-')b ((v2)(v3)(v4)(v5)(v6)) e7) s('+-')c e8 = <fflatten e1 ea ((v2)(<MUL (v3) <fnumsig eb>>)(v4)(v5)(v6)) e7 sc e8>
+ e1 e('+-')a (e('+-')b ((v2)(v3)(v4)(v5)(v6)) e7) = <fflatten e1 ea ((v2)(<MUL (v3) <fnumsig eb>>)(v4)(v5)(v6)) e7>
+ e1 ( e('+-')a (v2)) e3 = <fflatten e1 (('!')(<fnumsig ea>)('!')('!')(/1/)) '*' (v2) e3>
+ e1 ( e('+-')a (v2) '*' v(('+-'))4) e3 = <fflatten e1 (('!')(<fnumsig ea>)('!')('!')(/1/)) '*' (v2) '*' v4 e3>
+ e1 = e1
+ 
+freduce e('+-')1 v(('+-'))2 e3 = <fr4 <PRINT <fr3 <PRINT (('!')(/0/)('!')('!')(/1/)) <PRINT <frsum e1 <fr1 <PRINT v2 e3>>>>>>>>
+ e1 = e1
+ 
+frmul e1((v2)(v3)(v4)(v5)(v6))e7'*'((v2)(v8)(v4)(v5)(v9))ea = e1<frmul ((v2)(<MUL (v3) v8>)(v4)(v5)(<ADD (v6) v9>)) e7 ea>
+ e1 = e1
+ 
+frsum ea e('+-')0 ((v1)(v2)(v3)(v4)(v5)) e6 s('+-')7 ((v1)(v8)(v3)(v4)(v5)) e9 = <frsum ea '+' ((v1)(<ADD (<MUL (<fnumsig e0>) v2>) <MUL (<fnumsig s7>) v8>>)(v3)(v4)(v5)) e6 e9>
+ e1 = e1
+
+fr1 v1 s('+-')b v2 = <PRINT <fr2 (('!')(/1/)('!')('!')(/1/)) <PRINT <frmul v1>>>> sb <fr1 v2>
+ v1 = <PRINT <fr2 (('!')(/1/)('!')('!')(/1/)) <PRINT <frmul v1>>>>
+ e1 = e1
+ 
+fr2 ((v1)(v2)(v3)('!')(/1/)) ((v4)(v5)(e6)(v7)(v8)) '*' v9 = <fr2 ((v4)(<MUL (v2) v5>)(<PRINT <frcheck1 v3 (<fcomb (e6)(v7)(v8)>)>>)('!')(/1/)) v9>
+ ((v1)(v2)(v3)('!')(/1/)) ((v4)(v5)(e6)(v7)(v8)) = ((v4)(<MUL (v2) v5>)(<PRINT <frcheck1 v3 (<fcomb (e6)(v7)(v8)>)>>)('!')(/1/))
+ e1 = e1
+
+frcheck1 v1 () = v1
+ v1 (v2) = <frc1 v1 (v2)>
+ 
+frc1 '!' (v1) = v1 
+ v1 (v2) = v1 '*' v2
+ 
+fcomb ('!')('!')(v1) = 
+ (v1)('!')(/0/) = 
+ (v1)('!')(/1/) = v1
+ (v1)('!')(v2) = (v1)'^'v2
+ (v1)(v2)(/0/) = 
+ (v1)(v2)(/1/) = v1(v2)
+ (v1)(v2)(v3) = v1(v2)'^'v3
+ e1 = e1
+
+fr3 ((v1)(v2)(v3)('!')(/1/)) e('+-')0 ((v4)(v5)(e6)(v7)(v8)) e9 = <PRINT <fr3 <PRINT <fr3h <PRINT (<fcomb (e6)(v7)(v8)>) ((v1)(v2)(v3)('!')(/1/)) e('+-')0 ((v4)(v5)(e6)(v7)(v8))>>> e9>>
+ e1 = e1
+ 
+fr3h ()((v1)(v2)(v3)('!')(/1/)) e('+-')0 ((v4)(v5)(e6)(v7)(v8)) = ((v4)(<ADD (v2) <MUL (<fnumsig e0>) v5>>)(v3)('!')(/1/))
+ (vr)((v1)(v2)(v3)('!')(/1/)) e('+-')0 ((v4)(v5)(e6)(v7)(v8)) e9 = ((v4)(v2)(<frcheck2 v3 (<fr5 (<MUL (v5) <fnumsig e0>>) vr>)>)('!')(/1/))
+ e1 = e1
+ 
+fr6 ((v1)(/0/)('!')('!')(v2)) = ((v1)(/1/)('!')('!')(v2))
+ ((v1)(v2)('!')('!')(v3)) = ((v1)(v2)('!')('!')(v3))
+ ((v1)(/0/)(v2)('!')(v3)) = ((v1)(/1/)(v2)('!')(v3))
+ ((v1)(v2)(s('+-')a v3)('!')(v4)) = ((v1)(/1/)(v2 sa v3)('!')(v4))
+ ((v1)(v2)(v3)('!')(v4)) = ((v1)(/1/)(v2 '+' v3)('!')(v4))
+ e1 = 'Error: fr6 expr ' e1
+ 
+frcheck2 v1 () = v1
+ v1 (v2) = <frc2 v1 (v2)>
+ 
+frc2 '!' (v1) = v1
+ v1 (v2) = v1 v2
+ 
+fnumsig '-' = '-'/1/
+ e1 = /1/
+ 
+fr4 ((v1)(v2)(e3 s(('^'))4 s('+-')5 e6)(v7)(v8)) = ((v1)(v2)((e3 s4 s5 e6))(v7)(v8))
+ e1 = e1
+
+
+fr5 (/0/) v1 = '!'
+ (e('+-')a /1/) s('+-')b v1 = <fchsig ea sb> v1 
+ (/1/) v1 = '+' v1
+ ('-'/1/) v1 = '-'v1
+ (s('+-')a s(N)1) v2 = sa s1 '*' v2
+ (s(N)1) v2 = '+' s1 '*' v2
+ (/0/) = '!'
+ (e1) = e1
+ 
+fout ((v1)(v2)(v3)(v4)(v5)) = <fo1 (v2) v3>
+
+fo1 (v2)'+'v1 = <fo1 (v2)v1>
+ (v2)(v1) = <fo1 (v2) v1>
+ (v1) '!' = v1
+ (v1) v2 = v2
+ e1 = e1
+ 
+ end

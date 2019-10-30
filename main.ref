@@ -1,0 +1,31 @@
+SLAU START
+ extrn CARD
+ extrn OPNGET,OPNPUT,CLSGET,CLSPUT,LIBGET,LIBPUT
+ extrn PRINT,PRINTM,PROUT,PROUTM
+ extrn Br,Dg,Cp,Rp,Dgall
+ entry GO
+
+
+
+
+    
+go = <main>
+
+main  = <proceed <CARD 'input the text file name: '>><CLSGET>
+
+proceed e1 =  <start_to_search<file e1>>   
+     
+file  e1 = <PRINT<reading <OPNGET e1>'@'<LIBGET>>> 
+
+reading '@'e1 = <reading <LIBGET>>
+        R v1';'e2 = v1'|'<reading <LIBGET>>
+        R v1'.'e2 = v1
+start_to_search e1 = <put_to_kop e1'^'()>
+
+put_to_kop e2s(L)Ae2'^'() = <PROUT '1'><put_to_kop e2 '^'(sA)>
+           e1s(L)Ae2 '^'(e3sAe4) = <PROUT '2'><put_to_kop e1e2 '^'(e3sAe4)>
+           e1s(L)Ae2 '^'  (e3) = <PROUT '3'><put_to_kop e2'^'(e3sA)>
+           e1'^'(e2) = <PROUT '4'><BR 'var='e2>
+
+
+ end
