@@ -1,31 +1,64 @@
 SLAU START
  extrn CARD
+ EXTRN NUMB,SYMB,CHARTOF
+ EXTRN ADD,SUB,MUL,DIV,DR
  extrn OPNGET,OPNPUT,CLSGET,CLSPUT,LIBGET,LIBPUT
  extrn PRINT,PRINTM,PROUT,PROUTM
  extrn Br,Dg,Cp,Rp,Dgall
  entry GO
 
 
-
-
-    
 go = <main>
 
 main  = <proceed <CARD 'input the text file name: '>><CLSGET>
+*<pusk <read_from_file <CARD 'the input: '>>> <CLSGET>
+*<proceed <CARD 'input the text file name: '>><CLSGET>
 
-proceed e1 =  <start_to_search<file e1>>   
+proceed e1 =  <start_to_search<file e1>>    
      
-file  e1 = <PRINT<reading <OPNGET e1>'@'<LIBGET>>> 
+file  e1 = <PRINT<reading <OPNGET e1>'@'>> 
 
 reading '@'e1 = <reading <LIBGET>>
         R v1';'e2 = v1'|'<reading <LIBGET>>
         R v1'.'e2 = v1
-start_to_search e1 = <put_to_kop e1'^'()>
+start_to_search e1 = <put2kop e1'^'()><Step1 e1>
 
-put_to_kop e2s(L)Ae2'^'() = <PROUT '1'><put_to_kop e2 '^'(sA)>
-           e1s(L)Ae2 '^'(e3sAe4) = <PROUT '2'><put_to_kop e1e2 '^'(e3sAe4)>
-           e1s(L)Ae2 '^'  (e3) = <PROUT '3'><put_to_kop e2'^'(e3sA)>
-           e1'^'(e2) = <PROUT '4'><BR 'var='e2>
+put2kop e2s(L)Ae2'^'() = <put2kop e2 '^'(sA)>
+           e1s(L)Ae2 '^'(e3sAe4) = <put2kop e1e2 '^'(e3sAe4)>
+           e1s(L)Ae2 '^'  (e3) = <put2kop e2'^'(e3sA)>
+           e1'^'(e2) = <BR 'var='e2>
+
+Step1 e1 '=' e3 '|' e4  = <DoMetki e1><ChangeAllSigns<DoMetki e3>>'|'<Step1 e4>
+      e1'='e3 = <DoMetki e1><ChangeAllSigns<DoMetki e3>>
+      e2 = <PROUT 'error'>
 
 
+DoMetki e((D))0v(D)1v((D))3e2 = <DoMetki e0<Numb v1>/1/v3e2>
+		e((L))0v(L)1v((L))3e2 = <DoMetki e0<Chartof v1>v3e2>
+		e((D))0v(D)1 = <DoMetki e0<Numb v1>/1/>
+		e((L))0v(L)1 = <DoMetki e0<Chartof v1>>
+		e1 = <ChangeBrackets1 e1>
+        
+ChangeBrackets1 e1')'e2 = <ChangeBrackets1<ChangeBrackets2 e1>e2>
+			 e1'('e2 = <PROUT 'error'>
+			 e1 = e1
+
+ChangeBrackets2 R e9'('e7 = e9(<ChangeBrackets1 e7>)
+				e9 = <PROUT 'error'>
+
+ChangeAllSigns   = 
+                /0/s(N)9 =
+                '-'/0/s(N)9 =
+                '+'/0/s(N)9 =
+			   /0/s(N)9s(F)2e3  = <PROUT '1'><ChangeAllSigns e3>
+			   '-'/0/s(N)9s(F)2e3  = <PROUT '2'><ChangeAllSigns e3>
+			   '+'/0/s(N)9s(F)2e3  = <PROUT '3'><ChangeAllSigns e3>
+			   '+'e(N)1e('*')4s(F)2e3 = <PROUT '4'>'-'e1e4s2<ChangeAllSigns e3>
+			   '-'e(N)1e('*')4s(F)2e3 = <PROUT '5'>'+'e1e4s2<ChangeAllSigns e3>
+			   e(N)1e('*')4s(F)2e3 = <PROUT '6'>'-'e1e4s2<ChangeAllSigns e3>
+			   '+'e(N)1e3 = <PROUT '7'>'-'e1<ChangeAllSigns e3>
+			   '-'e(N)1e3 = <PROUT '8'>'+'e1<ChangeAllSigns e3>
+			   R e(N)1e3 = <PROUT e1>'-'e1<ChangeAllSigns e3> *look carefully
+       
  end
+
