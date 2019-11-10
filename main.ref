@@ -79,9 +79,9 @@ Cast    e('+-')0/0/s(N)9s('*/')6s(F)3e2 = <Cast e2>
 		e('+-')0v(FN'*/')1 =<PROUT 'CA 12'>e0v1
 		e1 = <PROUT 'CA 13'>e1
 
-SubNew (e('+-')0s(N)1s(N)9)s(N)6s(N)8 = '+'<Sub(e0<Mul(s1)s8>)<Mul(s6)s9>><Mul(s9)s8>
+SubNew (e('+-')0s(N)1s(N)9)s(N)6s(N)8 = <GetSign<PROUT 'SUB'e0s1s9s6s8>'+'<Sub(e0<Mul(s1)s8>)<Mul(s6)s9>><Mul(s9)s8>>
 
-AddNew (e('+-')0s(N)1s(N)9)s(N)6s(N)8 = '+'<Add(e0<Mul(s1)s8>)<Mul(s6)s9>><Mul(s9)s8>
+AddNew (e('+-')0s(N)1s(N)9)s(N)6s(N)8 = <GetSign<PROUT 'ADD'e0s1s9s6s8>'+'<Add(e0<Mul(s1)s8>)<Mul(s6)s9>><Mul(s9)s8>>
 		 
 
 ChangeAllSigns   = 
@@ -100,7 +100,8 @@ ChangeAllSigns   =
 
 
 Step2 e1  '|' e2 = <ExprVar e1> '|'e2
-	  *e1 = <ExprVar e1>
+	  e1 = <ExprVar e1>
+		  =
 	  
       
 ExprVar e('+-')0e(N)1s('*/')4s(F)2e3 = s2 '=' <Count<OpnBrcCompl (<ChangeAllSigns e3>)'/'e0e1>>
@@ -125,12 +126,14 @@ PutInsideL (e('+-')4v(N)3v(F'/*')8s('+-')1e2)s('*/')5e('+-')7s(FN)6 = <PROUT 'L1
 PutInsideR e('+-')7s(FN)6s('*/')5(e('+-')4v(FN'*/')3s('+-')1e2) = <PROUT 'R1'>e4e7s6s5v3<PutInsideR s6s5(s1e2)>
 		   e('+-')7s(FN)6s('*/')5(e('+-')4v(FN'*/')3) = <PROUT 'R2'>e4e7s6s5v3
 
-Step3 s(F)1'='e2 '|' e3 = s(F)1'='e2 '|' <GetSign<Count<OpnBrcCompl<Substit (s(F)1'='e2) e3>>>>
+Step3 s(F)1'='e2 '|' e3 = s(F)1'='e2 '|' <Substit (s(F)1'='e2) e3>
+	   e1=e1
 	    =
 
-Substit (s(F)7'='e1)e4v(N'*/')3S(F)7e2 =  e4v(N'*/')3(e1)e2
-		=
-
+Substit (s(F)7'='e1)e4v(N'*/')3S(F)7e2'|'e6 =    <Count<OpnBrcCompl e4v(N'*/')3(e1)e2>>'|' <Substit (s(F)7'='e1) e6>
+		(s(F)7'='e1)e4v(N'*/')3S(F)7e2 = <Count<OpnBrcCompl e4v(N'*/')3(e1)e2 >>
+			=
+ 
 
  end
 
