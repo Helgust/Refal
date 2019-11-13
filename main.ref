@@ -21,7 +21,7 @@ file  e1 = <PRINT<reading <OPNGET e1>'@'>>
 reading '@'e1 = <reading <LIBGET>>
         R v1';'e2 = v1'|'<reading <LIBGET>>
         R v1'.'e2 = v1
-start_to_search e1 = <put2kop e1'^'()><Step3<Step2<Step1 e1>>>
+start_to_search e1 = <put2kop e1'^'()><Step2<Step1 e1>>
 
 put2kop e2s(L)Ae2'^'() = <put2kop e2 '^'(sA)>
            e1s(L)Ae2 '^'(e3sAe4) = <put2kop e1e2 '^'(e3sAe4)>
@@ -49,12 +49,12 @@ ChangeBrackets2 R e9'('e7 = e9(<ChangeBrackets1 e7>)
 OpenBrackets e1(e2)e3 = e1<Count<OpenBrackets e2>><OpenBrackets e3>
 			e1 = e1	
 
-Count e1s(N)2s(N)9s('*')5s(N)3s(N)8e4 = <PROUT 'C1'><Count e1<Mul(s2)s3><Mul(s9)s8>e4>
-	  e1s(N)2s(N)9s('/')5s(N)3s(N)8e4 = <PROUT 'C2'><Count e1<Mul(s2)s8><Mul(s3)s9>e4>
+Count e1s(N)2s(N)9s('*')5s(N)3s(N)8e4 = <PROUT 'C1__'<Mul(s2)s3><Mul(s9)s8>> <Count e1<Mul(s2)s3><Mul(s9)s8>e4>
+	  e1s(N)2s(N)9s('/')5s(N)3s(N)8e4 = <PROUT 'C2__' <Mul(s2)s8><Mul(s3)s9>> <Count e1<Mul(s2)s8><Mul(s3)s9>e4>
 		  
-	  e1s(N)2s(N)9s('*')5s('-+')As(N)3s(N)8e4 = <PROUT 'C3'><Count e1sA<Mul(s2)s3><Mul(s9)s8>e4>
-	  e1s(N)2s(N)9s('/')5s('-+')As(N)3s(N)8e4 = <PROUT 'C4'><Count e1sA<Mul(s2)s8><Mul(s3)s9>e4>
-	  e1=<PROUT 'C5'><Cast e1>
+	  e1s(N)2s(N)9s('*')5s('-+')As(N)3s(N)8e4 = <PROUT 'C3__'sA<Mul(s2)s3><Mul(s9)s8>> <Count e1sA<Mul(s2)s3><Mul(s9)s8>e4>
+	  e1s(N)2s(N)9s('/')5s('-+')As(N)3s(N)8e4 = <PROUT 'C4__'sA<Mul(s2)s8><Mul(s3)s9>> <Count e1sA<Mul(s2)s8><Mul(s3)s9>e4>
+	  e1=<PROUT 'C5__'e1 ><Cast e1>
 
 GetSign e1s('+')2s('-+')4e3 = <GetSign e1s4e3>
 		e1s('-')2s('-')2e3 = <GetSign e1'+'e3>
@@ -99,7 +99,7 @@ ChangeAllSigns   =
 			   R e(N)1e3 = '-'e1<ChangeAllSigns e3> *look carefully
 
 
-Step2 e1  '|' e2 = <ExprVar e1> '|'e2
+Step2 e1  '|' e2 = <Step3 <ExprVar e1> '|'e2>
 	  e1 = <ExprVar e1>
 		  =
 	  
@@ -108,11 +108,11 @@ ExprVar e('+-')0e(N)1s('*/')4s(F)2e3 = s2 '=' <Count<OpnBrcCompl (<ChangeAllSign
 
 
 
-OpnBrcCompl  e('+-')4s(N)6s('*/')5(e2)e3 = <PROUT 'O1'> <Count<OpenBrackets e4<PutInsideR s6s5(<Count e2>)>e3>>
-			e('+-')4(e2)s('*/')5s(FN)6e3 = <PROUT 'O2'><Count<OpenBrackets e4(<PutInsideL (<Count <OpenBrackets e2>>)s5s6>)e3>>
+OpnBrcCompl  e('+-')4s(N)6s('*/')5(e2)e3 = <PROUT 'O1'> <GetSign<Count<OpenBrackets e4<PutInsideR s6s5(<Count e2>)>e3>>>
+			e('+-')4(e2)s('*/')5s(FN)6s(FN)9e3 = <PROUT 'O2'><GetSign<Count<OpenBrackets e4(<PutInsideL (<Count <OpenBrackets e2>>)s5s6s9>)e3>>>
 
 			e('+-')4s(N)6s('*/')5(e2)e3 = <PROUT 'O3'><GetSign<Count<OpenBrackets e4<PutInsideR s6s5(<Count e2>)>e3>>>
-			e('+-')4(e2)s('*/')5e('+-')7s(FN)6e3 = <PROUT 'O4'><GetSign<Count<OpenBrackets e4(<PutInsideL (<Count <OpenBrackets e2>>)s5e7s6>)e3>>>
+			e('+-')4(e2)s('*/')5e('+-')7s(FN)6s(FN)9e3 = <PROUT 'O4'><GetSign<Count<OpenBrackets e4(<PutInsideL (<Count <OpenBrackets e2>>)s5e7s6s9>)e3>>>
 
 			*e('+-')4(e2)e('+-')3e5 = <PROUT 'O5'><OpenBrackets e4(<Count <OpenBrackets e2>>)><OpenBrackets e3e5>
 			*e('+-')4(e2) = <PROUT 'O6'><OpenBrackets e4(<Count e2>)>
@@ -120,13 +120,13 @@ OpnBrcCompl  e('+-')4s(N)6s('*/')5(e2)e3 = <PROUT 'O1'> <Count<OpenBrackets e4<P
 				=
 
 
-PutInsideL (e('+-')4v(N)3v(F'/*')8s('+-')1e2)s('*/')5e('+-')7s(FN)6 = <PROUT 'L1'>e4v3s5e('+-')7s6/1/v8<PutInsideL (s1e2)s5e('+-')7s6>	  
-		   (e('+-')4v(FN'*/')3)s('*/')5e('+-')7s(FN)6 = <PROUT 'L2'> e4v3s5e7s6
+PutInsideL (e('+-')4v(N)3v(F'/*')8s('+-')1e2)s('*/')5e('+-')7s(FN)6s(FN)9 = <PROUT 'L1'>e4v3s5e('+-')7s6s9v8<PutInsideL (s1e2)s5e('+-')7s6s9>	  
+		   (e('+-')4v(FN'*/')3)s('*/')5e('+-')7s(FN)6s(FN)9 = <PROUT 'L2'> e4v3s5e7s6s9
 
 PutInsideR e('+-')7s(FN)6s('*/')5(e('+-')4v(FN'*/')3s('+-')1e2) = <PROUT 'R1'>e4e7s6s5v3<PutInsideR s6s5(s1e2)>
 		   e('+-')7s(FN)6s('*/')5(e('+-')4v(FN'*/')3) = <PROUT 'R2'>e4e7s6s5v3
 
-Step3 s(F)1'='e2 '|' e3 = s(F)1'='e2 '|' <Substit (s(F)1'='e2) e3>
+Step3 e4s(F)1'='e2 '|' e3 = e4s(F)1'='e2 '|' <Step2 <Substit (s(F)1'='e2) e3>>
 	   e1=e1
 	    =
 
