@@ -1,6 +1,6 @@
 SLAU START
  extrn CARD
- EXTRN NUMB,SYMB,CHARTOF
+ EXTRN NUMB,SYMB,CHARTOF,FTOCHAR
  EXTRN ADD,SUB,MUL,DIV,DR
  extrn OPNGET,OPNPUT,CLSGET,CLSPUT,LIBGET,LIBPUT
  extrn PRINT,PRINTM,PROUT,PROUTM
@@ -21,7 +21,7 @@ file  e1 = <PRINT<reading <OPNGET e1>'@'>>
 reading '@'e1 = <reading <LIBGET>>
         R v1';'e2 = v1'|'<reading <LIBGET>>
         R v1'.'e2 = v1
-start_to_search e1 = <put2kop e1'^'()><BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>
+start_to_search e1 = <put2kop e1'^'()><BeaOut<BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>>
 
 put2kop e2s(L)Ae2'^'() = <put2kop e2 '^'(sA)>
            e1s(L)Ae2 '^'(e3sAe4) = <put2kop e1e2 '^'(e3sAe4)>
@@ -159,11 +159,11 @@ MakeWhole s(F)7'='e1'|'e2 = <PROUT 'MakeWhole_1____' s(F)7'='e1 '|' e2> s(F)7'='
 				= 
 
 MakeSimple e('+-')3s((/0/)N)1s(N)2 =<PROUT 'MakeSimple_1____' e('+-')3s((/0/)N)1'/'s(N)2> e3<DIV (s1) <Nod (s1) s2>><DIV (s2) <Nod (s1) s2>><PROUT 'MakeSimple_1__=__'<DIV (s1) <Nod (s1) s2>>'/'<DIV (s2) <Nod (s1) s2>>>
-				e('+-')3/0/'/'s(N)2 = <PROUT 'MakeSimple_2____' e('+-')3/0/'/'s2>/0/'/'/1/
+				e('+-')3/0/ s(N)2 = <PROUT 'MakeSimple_2____' e('+-')3/0/'/'s2>/0//1/
 				  e1=e1
 				   =
-MakeSimple2 e('+-')3s((/0/)N)1'/'s(N)2 =<PROUT 'MakeSimple_1____' e('+-')3s((/0/)N)1'/'s(N)2> e3<DIV (s1) <Nod (s1) s2>>'/'<DIV (s2) <Nod (s1) s2>><PROUT 'MakeSimple_1__=__'<DIV (s1) <Nod (s1) s2>>'/'<DIV (s2) <Nod (s1) s2>>>
-				e('+-')3/0/'/'s(N)2 = <PROUT 'MakeSimple_2____' e('+-')3/0/'/'s2>/0/'/'/1/
+MakeSimple2 e('+-')3s((/0/)N)1s(N)2 =<PROUT 'MakeSimple2_1____' e('+-')3s((/0/)N)1'/'s(N)2> e3<DIV (s1) <Nod (s1) s2>><DIV (s2) <Nod (s1) s2>><PROUT 'MakeSimple_1__=__'<DIV (s1) <Nod (s1) s2>>'/'<DIV (s2) <Nod (s1) s2>>>
+				e('+-')3/0/s(N)2 = <PROUT 'MakeSimple2_2____' e('+-')3/0/'/'s2>/0//1/
 				  e1=e1
 				   =
 
@@ -172,13 +172,25 @@ BMS s(F)7'='e1 '|'e2 = <PROUT 'BMS_1____' s(F)7 '=' e1 '|' e2> s(F)7'='<MakeSimp
 			e1=e1
 			=
 
-Max (e1)e2 = <Mx (e1)e2 (<SUB (e1)e2>)>
-Mx (e1)e2('-'e3) = e2
-  (e1)e2(e3) = e1
-Min (e1)e2 = <Mn (e1)e2 (<SUB (e1)e2>)>
-Mn (e1)e2('-'e3) = e1
-  (e1)e2(e3) = e2
-Nod (e1)e1 = e1
-    (e1)e2 = <Nod (<Min (e1)e2>) <SUB (<Max(e1)e2>)<Min (e1)e2>>>
+
+BeaOut s(F)7'='e1 '|'e2 = <PROUT 'BeaOut_1____' s(F)7 '=' e1 '|' e2> <Ftochar s7>'='<BOUT e1>' | '<BeaOut e2>
+		s(F)7'='e1 = <PROUT 'BeaOut_2____' s(F)7'='e1> <Ftochar s7>'='<BOUT e1>
+			e1=e1
+			 =
+BOUT e('+-')3s((/0/)N)1s((/1/)N)2 = e('+-')3 <Symb s1>'/'<Symb s2>
+	 e('+-')3s((/0/)N)1/1/ = e('+-')3 <Symb s1>
+	 e('+-')3/0/s(N)2=
+	 e1=e1
+	 =
+
+
+Max (s1)s2 = <Mx (s1)s2 (<SUB (s1)s2>)>
+Mx (s1)s2('-'s3) = s2
+  (s1)s2(s3) = s1
+Min (s1)s2 = <Mn (s1)s2 (<SUB (s1)s2>)>
+Mn (s1)s2('-'s3) = s1
+  (s1)s2(s3) = s2
+Nod (s1)s1 = s1
+    (s1)s2 = <Nod (<Min (s1)s2>) <SUB (<Max(s1)s2>)<Min (s1)s2>>>
  end
 
