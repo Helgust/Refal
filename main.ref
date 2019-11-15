@@ -21,7 +21,7 @@ file  e1 = <PRINT<reading <OPNGET e1>'@'>>
 reading '@'e1 = <reading <LIBGET>>
         R v1';'e2 = v1'|'<reading <LIBGET>>
         R v1'.'e2 = v1
-start_to_search e1 = <put2kop e1'^'()><Forward<Step1 e1>>
+start_to_search e1 = <put2kop e1'^'()><Backward<Forward<Step1 e1>>>
 
 put2kop e2s(L)Ae2'^'() = <put2kop e2 '^'(sA)>
            e1s(L)Ae2 '^'(e3sAe4) = <put2kop e1e2 '^'(e3sAe4)>
@@ -49,12 +49,12 @@ ChangeBrackets2 R e9'('e7 = e9(<ChangeBrackets1 e7>)
 OpenBrackets e1(e2)e3 = e1<Count<OpenBrackets e2>><OpenBrackets e3>
 			e1 = e1	
 
-Count e1s(N)2s(N)9s('*')5s(N)3s(N)8e4 = <PROUT 'C1__'e1s(N)2s(N)9s('*')5s(N)3s(N)8e4> <Count  e1<Mul(s2)s3><Mul(s9)s8>e4> <PROUT '='<Count  e1<Mul(s2)s3><Mul(s9)s8>e4>>
-	  e1s(N)2s(N)9s('/')5s(N)3s(N)8e4 = <PROUT 'C2__'e1s(N)2s(N)9s('/')5s(N)3s(N)8e4> <Count  e1<Mul(s2)s8><Mul(s3)s9>e4> <PROUT '='<Count  e1<Mul(s2)s8><Mul(s3)s9>e4>>
+Count e1s(N)2s(N)9s('*')5s(N)3s(N)8e4 = <PROUT 'C1____ 'e1s(N)2s(N)9s('*')5s(N)3s(N)8e4> <Count  e1<Mul(s2)s3><Mul(s9)s8>e4> <PROUT '='<Count  e1<Mul(s2)s3><Mul(s9)s8>e4>>
+	  e1s(N)2s(N)9s('/')5s(N)3s(N)8e4 = <PROUT 'C2____ 'e1s(N)2s(N)9s('/')5s(N)3s(N)8e4> <Count  e1<Mul(s2)s8><Mul(s3)s9>e4> <PROUT '='<Count  e1<Mul(s2)s8><Mul(s3)s9>e4>>
 		  
-	  e1s(N)2s(N)9s('*')5s('-+')As(N)3s(N)8e4 = <PROUT 'C3__'e1s(N)2s(N)9s('*')5s('-+')As(N)3s(N)8e4> <Count  e1sA<Mul(s2)s3><Mul(s9)s8>e4> <PROUT '='<Count  e1sA<Mul(s2)s3><Mul(s9)s8>e4>>
-	  e1s(N)2s(N)9s('/')5s('-+')As(N)3s(N)8e4 = <PROUT 'C4__'e1s(N)2s(N)9s('/')5s('-+')As(N)3s(N)8e4> <Count  e1sA<Mul(s2)s8><Mul(s3)s9>e4> <PROUT '='<Count  e1sA<Mul(s2)s8><Mul(s3)s9>e4>>
-	  e1=<PROUT 'C5'><Cast e1>
+	  e1s(N)2s(N)9s('*')5s('-+')As(N)3s(N)8e4 = <PROUT 'C3____ 'e1s(N)2s(N)9s('*')5s('-+')As(N)3s(N)8e4> <Count  e1sA<Mul(s2)s3><Mul(s9)s8>e4> <PROUT '='<Count  e1sA<Mul(s2)s3><Mul(s9)s8>e4>>
+	  e1s(N)2s(N)9s('/')5s('-+')As(N)3s(N)8e4 = <PROUT 'C4____ 'e1s(N)2s(N)9s('/')5s('-+')As(N)3s(N)8e4> <Count  e1sA<Mul(s2)s8><Mul(s3)s9>e4> <PROUT '='<Count  e1sA<Mul(s2)s8><Mul(s3)s9>e4>>
+	  e1=<PROUT 'C5____' e1><Cast e1>
 
 GetSign e1s('+')2s('-+')4e3 = <GetSign e1s4e3>
 		e1s('-')2s('-')2e3 = <GetSign e1'+'e3>
@@ -63,21 +63,21 @@ GetSign e1s('+')2s('-+')4e3 = <GetSign e1s4e3>
 		e1 = e1	 
 
 
-Cast    e('+-')0/0/s(N)9s('*/')6s(F)3e2 = <Cast e2>
-		e('+-')0/0/s(N)9e2 = <Cast e2>
-		e('+-')0s(N)1s(N)9s('*')6s(F)3e2s('-')7s(N)5s(N)8s('*')6s3e4 =<PROUT 'CA 1'> <Cast<SubNew(e0s1s9)s5s8>s6s3e2e4>
-		e('+-')0s(N)1s(N)9s('*')6s(F)3e2s('+')7s(N)5s(N)8s('*')6s3e4 = <PROUT 'CA 2'><Cast<AddNew(e0s1s9)s5s8>s6s3e2e4>
-		e('+-')0s(N)1s(N)9s('-+')5e2s('-')4s(N)6s(N)8s('-+')7e3 = <PROUT 'CA 3'><Cast<SubNew(e0s1s9)s6s8>s5e2s7e3>
-		e('+-')0s(N)1s(N)9s('-+')5e2s('+')4s(N)6s(N)8s('-+')7e3 = <PROUT 'CA 4'><Cast<AddNew(e0s1s9)s6s8>s5e2s7e3>
-		e('+-')0s(N)1s(N)9s('-')4s(N)5s(N)8s('-+')7e3 = <PROUT 'CA 5'><Cast<SubNew(e0s1s9)s5s8>s7e3>
-		e('+-')0s(N)1s(N)9s('+')4s(N)5s(N)8s('-+')7e3 = <PROUT 'CA 6'><Cast<AddNew(e0s1s9)s5s8>s7e3>
-		e('+-')0s(N)1s(N)9s('-+')5e2s('-')4s(N)6s(N)8 = <PROUT 'CA 7'><Cast<SubNew(e0s1s9)s6s8>s5e2>
-		e('+-')0s(N)1s(N)9s('-+')5e2s('+')4s(N)6s(N)8 = <PROUT 'CA 8'><Cast<AddNew(e0s1s9)s6s8>s5e2>
-		e('+-')0s(N)1s(N)9s('-')4s(N)5s(N)8 = <PROUT 'CA 9'><SubNew(e0s1s9)s5s8>
-		e('+-')0s(N)1s(N)9s('+')4s(N)5s(N)8 =<PROUT 'CA 10'><AddNew(e0s1s9)s5s8> 
-		e('+-')0v(FN'*/')1s('+-')2v3 = <PROUT 'CA 11'>e0v1<Cast s2v3> 
-		e('+-')0v(FN'*/')1 =<PROUT 'CA 12'>e0v1
-		e1 = <PROUT 'CA 13'>e1
+Cast    e('+-')0/0/s(N)9s('*/')6s(F)3e2 =<PROUT 'CA 01____ 'e('+-')0/0/s(N)9s('*/')6s(F)3e2><Cast e2>
+		e('+-')0/0/s(N)9e2 = <PROUT 'CA 02____ ' e('+-')0/0/s(N)9e2> <Cast e2>
+		e('+-')0s(N)1s(N)9s('*')6s(F)3e2s('-')7s(N)5s(N)8s('*')6s3e4 =<PROUT 'CA 1____ ' e('+-')0s(N)1s(N)9s('*')6s(F)3e2s('-')7s(N)5s(N)8s('*')6s3e4> <Cast<SubNew(e0s1s9)s5s8>s6s3e2e4>
+		e('+-')0s(N)1s(N)9s('*')6s(F)3e2s('+')7s(N)5s(N)8s('*')6s3e4 = <PROUT 'CA 2____ ' e('+-')0s(N)1s(N)9s('*')6s(F)3e2s('+')7s(N)5s(N)8s('*')6s3e4><Cast<AddNew(e0s1s9)s5s8>s6s3e2e4>
+		e('+-')0s(N)1s(N)9s('-+')5e2s('-')4s(N)6s(N)8s('-+')7e3 = <PROUT 'CA 3____ ' e('+-')0s(N)1s(N)9s('-+')5e2s('-')4s(N)6s(N)8s('-+')7e3><Cast<SubNew(e0s1s9)s6s8>s5e2s7e3>
+		e('+-')0s(N)1s(N)9s('-+')5e2s('+')4s(N)6s(N)8s('-+')7e3 = <PROUT 'CA 4____ ' e('+-')0s(N)1s(N)9s('-+')5e2s('+')4s(N)6s(N)8s('-+')7e3><Cast<AddNew(e0s1s9)s6s8>s5e2s7e3>
+		e('+-')0s(N)1s(N)9s('-')4s(N)5s(N)8s('-+')7e3 = <PROUT 'CA 5____ ' e('+-')0s(N)1s(N)9s('-')4s(N)5s(N)8s('-+')7e3><Cast<SubNew(e0s1s9)s5s8>s7e3>
+		e('+-')0s(N)1s(N)9s('+')4s(N)5s(N)8s('-+')7e3 = <PROUT 'CA 6____ ' e('+-')0s(N)1s(N)9s('+')4s(N)5s(N)8s('-+')7e3><Cast<AddNew(e0s1s9)s5s8>s7e3>
+		e('+-')0s(N)1s(N)9s('-+')5e2s('-')4s(N)6s(N)8 = <PROUT 'CA 7____ ' e('+-')0s(N)1s(N)9s('-+')5e2s('-')4s(N)6s(N)8><Cast<SubNew(e0s1s9)s6s8>s5e2>
+		e('+-')0s(N)1s(N)9s('-+')5e2s('+')4s(N)6s(N)8 = <PROUT 'CA 8____ ' e('+-')0s(N)1s(N)9s('-+')5e2s('+')4s(N)6s(N)8><Cast<AddNew(e0s1s9)s6s8>s5e2>
+		e('+-')0s(N)1s(N)9s('-')4s(N)5s(N)8 = <PROUT 'CA 9____' e('+-')0s(N)1s(N)9s('-')4s(N)5s(N)8><SubNew(e0s1s9)s5s8> 
+		e('+-')0s(N)1s(N)9s('+')4s(N)5s(N)8 =<PROUT 'CA 10____' e('+-')0s(N)1s(N)9s('+')4s(N)5s(N)8><AddNew(e0s1s9)s5s8> 
+		e('+-')0v(FN'*/')1s('+-')2v3 = <PROUT 'CA 11____' e('+-')0v(FN'*/')1s('+-')2v3  >e0v1<Cast s2v3> 
+		e('+-')0v(FN'*/')1 =<PROUT 'CA 12____' e('+-')0v(FN'*/')1> e0v1 
+		e1 = <PROUT 'CA 13____' e1>e1
 
 SubNew (e('+-')0s(N)1s(N)9)s(N)6s(N)8 = <GetSign <PROUT 'SUB'e0s1s9s6s8'='<Sub(e0<Mul(s1)s8>)<Mul(s6)s9>><Mul(s9)s8>>'+' <Sub(e0<Mul(s1)s8>)<Mul(s6)s9>><Mul(s9)s8>> 
 
@@ -85,17 +85,17 @@ AddNew (e('+-')0s(N)1s(N)9)s(N)6s(N)8 = <GetSign<PROUT 'ADD'e0s1s9s6s8'='<Add(e0
 		 
 
 ChangeAllSigns   = 
-               R /0/s(N)9 =
-               R '-'/0/s(N)9 =
-               R '+'/0/s(N)9 =
-			   R /0/s(N)9s(F)2e3  = <ChangeAllSigns e3>
-			   R '-'/0/s(N)9s(F)2e3  = <ChangeAllSigns e3>
-			   R '+'/0/s(N)9s(F)2e3  = <ChangeAllSigns e3>
-			   R '+'e(N)1e('*')4s(F)2e3 = '-'e1e4s2<ChangeAllSigns e3>
-			   R '-'e(N)1e('*')4s(F)2e3 = '+'e1e4s2<ChangeAllSigns e3>
-			   R e(N)1e('*')4s(F)2e3 = '-'e1e4s2<ChangeAllSigns e3>
-			   R '+'e(N)1e3 = '-'e1<ChangeAllSigns e3>
-			   R '-'e(N)1e3 = '+'e1<ChangeAllSigns e3>
+               R /0/s(N)9 =<PROUT 'CAS1___'>
+               R '-'/0/s(N)9 =<PROUT 'CAS2___'>
+               R '+'/0/s(N)9 =<PROUT 'CAS3___'>
+			   R /0/s(N)9s(F)2e3  = <PROUT 'CAS4___'><ChangeAllSigns e3>
+			   R '-'/0/s(N)9s(F)2e3  = <PROUT 'CAS5___'><ChangeAllSigns e3>
+			   R '+'/0/s(N)9s(F)2e3  = <PROUT 'CAS6___'><ChangeAllSigns e3>
+			   R '+'e(N)1e('*')4s(F)2e3 =<PROUT 'CAS7___'> '-'e1e4s2<ChangeAllSigns e3>
+			   R '-'e(N)1e('*')4s(F)2e3 =<PROUT 'CAS8___'> '+'e1e4s2<ChangeAllSigns e3>
+			   R e(N)1e('*')4s(F)2e3 =<PROUT 'CAS9___'> '-'e1e4s2<ChangeAllSigns e3>
+			   R '+'e(N)1e3 =<PROUT 'CAS10___'> '-'e1<ChangeAllSigns e3>
+			   R '-'e(N)1e3 =<PROUT 'CAS11___'> '+'e1<ChangeAllSigns e3>
 			   R e(N)1e3 = '-'e1<ChangeAllSigns e3> *look carefully
 
 
@@ -104,41 +104,54 @@ Step2 e1  '|' e2 = <PROUT 'STEP_2____' e1'|'e2> <ExprVar e1> '|'e2
 		  =
 	  
       
-ExprVar e('+-')0e(N)1s('*/')4s(F)2e3 = s2 '=' <GetSign<Count<OpnBrcCompl (<ChangeAllSigns e3>)'/'e0e1>>>
-			e1=e1
+ExprVar e('+-')0e(N)1s('*/')4s(F)2e3 = <PROUT 'ExprVar1___' e('+-')0e(N)1s('*/')4s(F)2e3>s2 '=' <GetSign<Count<OpnBrcCompl (<ChangeAllSigns e3>)'/'e0e1>>> <PROUT 'ExprVar1__=__'s2 '=' <GetSign<Count<OpnBrcCompl (<ChangeAllSigns e3>)'/'e0e1>>>>
+			e1=<PROUT 'ExprVar2___'e1>e1
 			  =
 
 
 
-OpnBrcCompl  e('+-')4s(N)6s('*/')5(e2)e3 = <PROUT 'O1'> <GetSign<Count<OpenBrackets e4<PutInsideR s6s5(<Count e2>)>e3>>>
+OpnBrcCompl  e('+-')4s(N)6s('*/')5(e2)e3 = <PROUT 'O1____'> <GetSign<Count<OpenBrackets <GetSign e4<PutInsideR s6s5(<Count e2>)>>e3>>>
 			e('+-')4(e2)s('*/')5s(FN)6s(FN)9e3 = <PROUT 'O2____'e('+-')4(e2)s('*/')5s(FN)6s(FN)9e3><GetSign<Count<OpenBrackets e4(<PutInsideL (<Count <OpenBrackets e2>>)s5s6s9>)e3>>>
 
-			e('+-')4s(N)6s(N)9s('*/')5(e2)e3 = <PROUT 'O3___'e('+-')4s(N)6s(N)9s('*/')5(e2)e3><GetSign<Count<OpenBrackets e4<PutInsideR s6s9s5(<Count <OpenBrackets e2>>)>e3>>>
+			e('+-')4s(N)6s(N)9s('*/')5(e2)e3 = <PROUT 'O3___'e('+-')4s(N)6s(N)9s('*/')5(e2)e3><GetSign<Count<OpenBrackets  <PutInsideR e4s6s9s5(<Count <OpenBrackets e2>>)>>e3>>
 			e('+-')4(e2)s('*/')5e('+-')7s(FN)6s(FN)9e3 = <PROUT 'O4__'e('+-')4(e2)s('*/')5e('+-')7s(FN)6s(FN)9e3><GetSign<Count<OpenBrackets e4(<PutInsideL (<Count <OpenBrackets e2>>)s5e7s6s9>)e3>>>
 
-			*e('+-')4(e2)e('+-')3e5 = <PROUT 'O5'><OpenBrackets e4(<Count <OpenBrackets e2>>)><OpenBrackets e3e5>
-			*e('+-')4(e2) = <PROUT 'O6'><OpenBrackets e4(<Count e2>)>
+			*e('+-')4(e2)e('+-')3e5 = <PROUT 'O5____'><OpenBrackets e4(<Count <OpenBrackets e2>>)><OpenBrackets e3e5>
+			*e('+-')4(e2) = <PROUT 'O6____'><OpenBrackets e4(<Count e2>)>
 			e('+-')4v(FN'*/')2e('+-')3e1 = <PROUT 'O7___' e('+-')4v(FN'*/')2e('+-')3e1>e4<Count v2><OpenBrackets e3e1> 
-				=
+				 =<PROUT '08___'>
 
 
-PutInsideL (e('+-')4v(N)3v(F'/*')8s('+-')1e2)s('*/')5s(FN)6s(FN)9 = <PROUT 'L1___'(e('+-')4v(N)3v(F'/*')8s('+-')1e2)s('*/')5s(FN)6s(FN)9> e4v3s5s6s9v8<PROUT '='e4v3s5s6s9v8 ><PutInsideL (s1e2)s5s6s9>	  
-		   (e('+-')4v(FN'*/')3)s('*/')5s(FN)6s(FN)9 = <PROUT 'L2___' (e('+-')4v(FN'*/')3)s('*/')5s(FN)6s(FN)9> e4v3s5s6s9 <PROUT '='e4v3s5s6s9>
+PutInsideL (e('+-')4v(N)3v(F'/*')8s('+-')1e2)s('*/')5e('+-')7s(FN)6s(FN)9 = <PROUT 'L1___'(e('+-')4v(N)3v(F'/*')8s('+-')1e2)s('*/')5e('+-')7s(FN)6s(FN)9> e4v3s5e7s6s9v8<PROUT 'L1=__'e4v3s5e7s6s9v8 ><PutInsideL (s1e2)s5e7s6s9>	  
+		   (e('+-')4v(N)3v(F'/*')8)s('*/')5e('+-')7s(FN)6s(FN)9 = <PROUT 'L2___' (e('+-')4v(N)3v(F'/*')8)s('*/')5e('+-')7s(FN)6s(FN)9> e4v3s5e7s6s9v8 <PROUT 'L2=__'e4v3s5e7s6s9v8>
+		   (e('+-')4v(N)3)s('*/')5e('+-')7s(FN)6s(FN)9 = <PROUT 'L3___' (e('+-')4v(N)3)s('*/')5e('+-')7s(FN)6s(FN)9> e4v3s5e7s6s9 <PROUT 'L3=__'e4v3s5e7s6s9>
 
-PutInsideR e('+-')7s(FN)6s(FN)9s('*/')5(e('+-')4v(FN'*/')3s('+-')1e2) = <PROUT 'R1'>e4e7s6s9s5v3<PutInsideR e7s6s9s5(s1e2)>
-		   e('+-')7s(FN)6s(FN)9s('*/')5(e('+-')4v(FN'*/')3) = <PROUT 'R2'>e4e7s6s9s5v3
+PutInsideR e('+-')7s(FN)6s(FN)9s('*/')5(e('+-')4v(N)3v(F'/*')8s('+-')1e2) = <PROUT 'R1____' e('+-')7s(FN)6s(FN)9s('*/')5(e('+-')4v(N)3v(F'/*')8s('+-')1e2)><GetSign e4e7s6s9s5v3v8><PROUT 'R1=__'e4e7s6s9s5v3v8><PutInsideR e7s6s9s5(s1e2)>
+		   e('+-')7s(FN)6s(FN)9s('*/')5(e('+-')4v(N)3v(F'/*')8) = <PROUT 'R2____' e('+-')7s(FN)6s(FN)9s('*/')5(e('+-')4v(N)3v(F'/*')8)><Getsign e4e7s6s9s5v3v8> <PROUT 'R2=__'e4e7s6s9s5v3v8>
+			e('+-')7s(FN)6s(FN)9s('*/')5(e('+-')4v(N)3) = <PROUT 'R3____' e('+-')7s(FN)6s(FN)9s('*/')5(e('+-')4v(N)3)><GetSign e4e7s6s9s5v3> <PROUT 'R3=__'e4e7s6s9s5v3>
 
-Step3 e4s(F)1'='e2 '|' e3 = <PROUT 'STEP3== ' e4s(F)1'='e2 '|' e3 >e4s(F)1'='e2 '|' <Forward <Substit (s(F)1'='e2) e3>>
+Step3 e4s(F)1'='e2 '|' e3 = <PROUT 'STEP3____= ' e4s(F)1'='e2 '|' e3 >e4s(F)1'='e2 '|' <Forward <Substit (s(F)1'='e2) e3>>
 	   e1=e1
 	    =
 
 Substit (s(F)7'='e1)e4v(N'*/')3S(F)7e2'|'e6 =    <Count<OpnBrcCompl e4v(N'*/')3(e1)e2>>'|' <Substit (s(F)7'='e1) e6>
 		(s(F)7'='e1)e4v(N'*/')3S(F)7e2 = <Count<OpnBrcCompl e4v(N'*/')3(e1)e2 >>
+			e1=<PROUT 'error'>
+
+
+Forward e1'|'e2 = <PROUT 'FORWARD_1____' e1'|'e2> <Step3 <ExprVar e1> '|'e2>
+			e1=<PROUT 'FORWARD_2____' e1><ExprVar e1>
+				=
+
+Backward R e1 '|' e2 =  <PROUT 'BACKWARD_1____' e1 '|' e2> <Step4 e1 '|'e2>
+		e1=e1
+			=
+Step4 R e1 '|' s(F)2'='e3 = <PROUT 'STEP4____= ' e1 '|' s(F)2'='e3 > <Step4 <GetSign <Substit (s(F)2'='e3) e1>>> '|' s(F)2'='e3
 			e1=e1
-			=
-Forward e1'|'e2 = <Step3 <ExprVar e1> '|'e2>
-		e1 = e1
-			=
+			  =
+MakeWhole e1'|'e2 = <PROUT 'MakeWhole_1____' e1 '|' e2><Count e1> '|' <MakeWhole e2>
+			 e1=<PROUT 'MakeWhole_2____' e1 ><Count e1>
+				= 
 
  end
 
