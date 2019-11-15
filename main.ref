@@ -21,7 +21,7 @@ file  e1 = <PRINT<reading <OPNGET e1>'@'>>
 reading '@'e1 = <reading <LIBGET>>
         R v1';'e2 = v1'|'<reading <LIBGET>>
         R v1'.'e2 = v1
-start_to_search e1 = <put2kop e1'^'()><MakeWhole<Backward<Forward<Step1 e1>>>>
+start_to_search e1 = <put2kop e1'^'()><BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>
 
 put2kop e2s(L)Ae2'^'() = <put2kop e2 '^'(sA)>
            e1s(L)Ae2 '^'(e3sAe4) = <put2kop e1e2 '^'(e3sAe4)>
@@ -158,17 +158,17 @@ MakeWhole s(F)7'='e1'|'e2 = <PROUT 'MakeWhole_1____' s(F)7'='e1 '|' e2> s(F)7'='
 			e1=e1
 				= 
 
-MakeSimple e('+-')3s((/0/)N)1s(N)2 =<PROUT 'MakeSimple_1____' e('+-')3s((/0/)N)1'/'s(N)2> e3<DIV (s1) <Nod (s1) s2>>'/'<DIV (s2) <Nod (s1) s2>><PROUT 'MakeSimple_1__=__'<DIV (s1) <Nod (s1) s2>>'/'<DIV (s2) <Nod (s1) s2>>>
-				e('+-')1/0/'/'s(N)2 = <PROUT 'MakeSimple_2____' e('+-')1/0/'/'s2>/0/'/'/1/
+MakeSimple e('+-')3s((/0/)N)1s(N)2 =<PROUT 'MakeSimple_1____' e('+-')3s((/0/)N)1'/'s(N)2> e3<DIV (s1) <Nod (s1) s2>><DIV (s2) <Nod (s1) s2>><PROUT 'MakeSimple_1__=__'<DIV (s1) <Nod (s1) s2>>'/'<DIV (s2) <Nod (s1) s2>>>
+				e('+-')3/0/'/'s(N)2 = <PROUT 'MakeSimple_2____' e('+-')3/0/'/'s2>/0/'/'/1/
 				  e1=e1
 				   =
-MakeSimple2 e('+-')3s((/0/)N)1/s(N)2 =<PROUT 'MakeSimple_1____' e('+-')3s((/0/)N)1'/'s(N)2> e3<DIV (s1) <Nod (s1) s2>>'/'<DIV (s2) <Nod (s1) s2>><PROUT 'MakeSimple_1__=__'<DIV (s1) <Nod (s1) s2>>'/'<DIV (s2) <Nod (s1) s2>>>
-				e('+-')1/0/'/'s(N)2 = <PROUT 'MakeSimple_2____' e('+-')1/0/'/'s2>/0/'/'/1/
+MakeSimple2 e('+-')3s((/0/)N)1'/'s(N)2 =<PROUT 'MakeSimple_1____' e('+-')3s((/0/)N)1'/'s(N)2> e3<DIV (s1) <Nod (s1) s2>>'/'<DIV (s2) <Nod (s1) s2>><PROUT 'MakeSimple_1__=__'<DIV (s1) <Nod (s1) s2>>'/'<DIV (s2) <Nod (s1) s2>>>
+				e('+-')3/0/'/'s(N)2 = <PROUT 'MakeSimple_2____' e('+-')3/0/'/'s2>/0/'/'/1/
 				  e1=e1
 				   =
 
-BMS s(F)7'='e1 '|'e2 = <PROUT 'BMS_1____' s(F)7 '=' e1 '|' e2> s(F)7'='<MakeSimple e1> '|' <BMS e2>
-		s(F)7'='e1 = <PROUT 'BMS_2____' s(F)7'='e1> s(F)7'='<MakeSimple e1> 
+BMS s(F)7'='e1 '|'e2 = <PROUT 'BMS_1____' s(F)7 '=' e1 '|' e2> s(F)7'='<MakeSimple2 e1> '|' <BMS e2>
+		s(F)7'='e1 = <PROUT 'BMS_2____' s(F)7'='e1> s(F)7'='<MakeSimple2 e1> 
 			e1=e1
 			=
 
