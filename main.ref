@@ -21,7 +21,7 @@ file  e1 = <PRINT<reading <OPNGET e1>'@'>>
 reading '@'e1 = <reading <LIBGET>>
         R v1';'e2 = v1'|'<reading <LIBGET>>
         R v1'.'e2 = v1
-start_to_search e1 = <put2kop e1'^'()><BeaOut<BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>>
+start_to_search e1 = <put2kop e1'^'()><Analyze<BeaOut<BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>>>
 
 put2kop e2s(L)Ae2'^'() = <put2kop e2 '^'(sA)>
            e1s(L)Ae2 '^'(e3sAe4) = <put2kop e1e2 '^'(e3sAe4)>
@@ -173,17 +173,25 @@ BMS s(F)7'='e1 '|'e2 = <PROUT 'BMS_1____' s(F)7 '=' e1 '|' e2> s(F)7'='<MakeSimp
 			=
 
 
-BeaOut s(F)7'='e1 '|'e2 = <PROUT 'BeaOut_1____' s(F)7 '=' e1 '|' e2> <Ftochar s7>'='<BOUT e1>' | '<BeaOut e2>
-		s(F)7'='e1 = <PROUT 'BeaOut_2____' s(F)7'='e1> <Ftochar s7>'='<BOUT e1>
-			e1=e1
+BeaOut s(F)7 '=' e('+-')1s(N)2s(N)3 '|'e4 = <PROUT 'BeaOut_1____' s(F)7 '=' e('+-')1s(N)2s(N)3 '|'e4> <Ftochar s7>'='<BOUT e('+-')1s(N)2s(N)3>' | '<BeaOut e4>
+		s(F)7'='e('+-')1s(N)2s(N)3 = <PROUT 'BeaOut_2____' s(F)7'='e1> <Ftochar s7>'='<BOUT e('+-')1s(N)2s(N)3>
+		s(F)7'='e('+-')1v(N)2s('*/')3s(F)4e5 '|' e6= <PROUT 'BeaOut_3____' s(F)7'='e1> <Ftochar s7>'='<FreeVar e('+-')1v(N)2s('*/')3s(F)4e5 >	
 			 =
 BOUT e('+-')3s((/0/)N)1s((/1/)N)2 = e('+-')3 <Symb s1>'/'<Symb s2>
 	 e('+-')3s((/0/)N)1/1/ = e('+-')3 <Symb s1>
 	 e('+-')3/0/s(N)2=
+	 e('+-')3s(N)2=
 	 e1=e1
 	 =
 
+FreeVar e('+-')1s(N)2s(N)6s('*/')3s(F)4e5 = <PROUT 'FreeVar1___' e('+-')1s(N)2s(N)6s('*/')3s(F)4e5> <BOUT e1s2s6>s3<FtoChar s4> <FreeVar e5> s4'|'
+		e('+-')1e(N)2=<BOUT e1e2>
 
+Analyze  e1s(F)2'|'= <PROUT 'AN' s2> <Analyze e1>' '<FtoChar1 s2>'=free var'
+		e1=e1
+
+FtoChar1 s(F)1e2=<FtoChar s1>
+	=
 Max (s1)s2 = <Mx (s1)s2 (<SUB (s1)s2>)>
 Mx (s1)s2('-'s3) = s2
   (s1)s2(s3) = s1
