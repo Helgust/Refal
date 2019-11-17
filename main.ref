@@ -118,8 +118,8 @@ OpnBrcCompl  e('+-')4s(N)6s('*/')5(e2)e3 = <PROUT 'O1____'> <GetSign<Count<OpenB
 
 			*e('+-')4(e2)e('+-')3e5 = <PROUT 'O5____'><OpenBrackets e4(<Count <OpenBrackets e2>>)><OpenBrackets e3e5>
 			*e('+-')4(e2) = <PROUT 'O6____'><OpenBrackets e4(<Count e2>)>
-			e('+-')4v(FN'*/')2e('+-')3e1 = <PROUT 'O7___' e('+-')4v(FN'*/')2e('+-')3e1>e4<Count v2><OpenBrackets e3e1> 
-				 =<PROUT '08___'>
+			e('+-')4v(FN'*/')2e('+-')3e1 = <PROUT 'O7___' e('+-')4v(FN'*/')2e('+-')3e1>e4<Count v2><OpenBrackets e3e1>
+				 =<PROUT '09___'>
 
 
 PutInsideL (e('+-')4v(N)3v(F'/*')8s('+-')1e2)s('*/')5e('+-')7s(FN)6s(FN)9 = <PROUT 'L1___'(e('+-')4v(N)3v(F'/*')8s('+-')1e2)s('*/')5e('+-')7s(FN)6s(FN)9> e4v3s5e7s6s9v8<PROUT 'L1=__'e4v3s5e7s6s9v8 ><PutInsideL (s1e2)s5e7s6s9>	  
@@ -177,6 +177,8 @@ BMS s(F)7'='e1 '|'e2 = <PROUT 'BMS_1____' s(F)7 '=' e1 '|' e2> s(F)7'='<MakeSimp
 BeaOut s(F)7 '=' e('+-')1s(N)2s(N)3 '|'e4 = <PROUT 'BeaOut_1____' s(F)7 '=' e('+-')1s(N)2s(N)3 '|'e4> <Ftochar s7>'='<BOUT e('+-')1s(N)2s(N)3>' | '<BeaOut e4>
 		s(F)7'='e('+-')1s(N)2s(N)3 = <PROUT 'BeaOut_2____' s(F)7'='e1> <Ftochar s7>'='<BOUT e('+-')1s(N)2s(N)3>
 		s(F)7'='e('+-')1v(N)2s('*/')3s(F)4e5 '|' e6= <PROUT 'BeaOut_3____' s(F)7'='e1> <Ftochar s7>'='<FreeVar e('+-')1v(N)2s('*/')3s(F)4e5 >	
+		e('-+')0s(N)1s(N)2 '|' e4 = '!N' '|' <BeaOut e4>
+		e('-+')0s(N)1s(N)2 = '!N'	
 			 =
 BOUT e('+-')3s((/0/)N)1s((/1/)N)2 = e('+-')3 <Symb s1>'/'<Symb s2>
 	 e('+-')3s((/0/)N)1/1/ = e('+-')3 <Symb s1>
@@ -188,7 +190,8 @@ BOUT e('+-')3s((/0/)N)1s((/1/)N)2 = e('+-')3 <Symb s1>'/'<Symb s2>
 FreeVar e('+-')1s(N)2s(N)6s('*/')3s(F)4e5 = <PROUT 'FreeVar1___' e('+-')1s(N)2s(N)6s('*/')3s(F)4e5> <BOUT e1s2s6>s3<FtoChar s4> <FreeVar e5> s4'|'
 		e('+-')1e(N)2=<BOUT e1e2>
 
-Analyze  e1s(F)2'|'= <PROUT 'AN' s2> <Analyze e1>' '<FtoChar1 s2>'=free var'
+Analyze  e1s(F)2'|'= <PROUT 'AN_1' s2> <Analyze e1>' '<FtoChar1 s2>'=free var'
+		 e1'|!N' = <PROUT 'AN_2' e1> 'Error: Solution didnt exist!'
 		e1=e1
 
 FtoChar1 s(F)1e2=<FtoChar s1>
