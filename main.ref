@@ -180,11 +180,13 @@ BMS s(F)7'='e1 '|'e2 = <PROUT 'BMS_1____' s(F)7 '=' e1 '|' e2> s(F)7'='<MakeSimp
 			=
 
 
-BeaOut s(F)7 '=' e('+-')1s(N)2s(N)3 '|'e4 = <PROUT 'BeaOut_1____' s(F)7 '=' e('+-')1s(N)2s(N)3 '|'e4> <Ftochar s7>'='<BOUT e('+-')1s(N)2s(N)3>' | '<BeaOut e4>
+BeaOut  e1'|' '!N'e2 = 'ERROR: No solutions have'
+		s(F)7 '=' e('+-')1s(N)2s(N)3 '|'e4 = <PROUT 'BeaOut_1____' s(F)7 '=' e('+-')1s(N)2s(N)3 '|'e4> <Ftochar s7>'='<BOUT e('+-')1s(N)2s(N)3>' | '<BeaOut e4>
 		s(F)7'='e('+-')1s(N)2s(N)3 = <PROUT 'BeaOut_2____' s(F)7'='e1> <Ftochar s7>'='<BOUT e('+-')1s(N)2s(N)3>
 		s(F)7'='e('+-')1v(N)2s('*/')3s(F)4e('+-'N)5 '|' e6 = <PROUT 'BeaOut_3____' s(F)7'='e('+-')1v(N)2s('*/')3s(F)4e5> <Ftochar s7>'=' <BOUT2 e('+-')1v(N)2s('*/')3s(F)4e('+-'N)5 > '|' <Beaout e6>	
 	    e3'F'e(('!'))5 = <BeaOut 'F!'<OnlyOne e5>>
 		'F!'e4 = <FreeVar e4>
+			
 			=
 
 BOUT e('+-')3s((/0/)N)1s((/1/)N)2 = e('+-')3 <Symb s1>'/'<Symb s2>
