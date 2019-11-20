@@ -65,8 +65,8 @@ GetSign e1s('+')2s('-+')4e3 = <GetSign e1s4e3>
 		e1 = e1	 
 
 
-		e('+-')0/0/s(N)9e2 = <PROUT 'CA 02____ ' e('+-')0/0/s(N)9e2> <Cast e2>
-Cast    e('+-')0/0/s(N)9s('*/')6s(F)3e2 =<PROUT 'CA 01____ 'e('+-')0/0/s(N)9s('*/')6s(F)3e2><Cast e2>
+		e('+-')0/0/s(N)9e2 = <PROUT 'CA 02____ ' e('+-')0/0/s(N)9e2> e0/0//1/<Cast e2>
+Cast    e('+-')0/0/s(N)9s('*/')6s(F)3e2 =<PROUT 'CA 01____ 'e('+-')0/0/s(N)9s('*/')6s(F)3e2>e0/0//1/<Cast e2>
 		e('+-')0s(N)1s(N)9s('*')6s(F)3e2s('-')7s(N)5s(N)8s('*')6s3e4 =<PROUT 'CA 1____ ' e('+-')0s(N)1s(N)9s('*')6s(F)3e2s('-')7s(N)5s(N)8s('*')6s3e4> <Cast<MakeSimple<SubNew(e0s1s9)s5s8>>s6s3e2e4>
 		e('+-')0s(N)1s(N)9s('*')6s(F)3e2s('+')7s(N)5s(N)8s('*')6s3e4 = <PROUT 'CA 2____ ' e('+-')0s(N)1s(N)9s('*')6s(F)3e2s('+')7s(N)5s(N)8s('*')6s3e4><Cast<MakeSimple<AddNew(e0s1s9)s5s8>>s6s3e2e4>
 		e('+-')0s(N)1s(N)9s('-+')5e2s('-')4s(N)6s(N)8s('-+')7e3 = <PROUT 'CA 3____ ' e('+-')0s(N)1s(N)9s('-+')5e2s('-')4s(N)6s(N)8s('-+')7e3><Cast<MakeSimple<SubNew(e0s1s9)s6s8>>s5e2s7e3>
@@ -201,24 +201,25 @@ BeaOut  'AVF' = 'All Vars Are Free'
 		s(F)7'=' e('+-')0s(N)1s(N)2s('*/')3s(F)4s('+-')5e6 '|' e8 = <PROUT 'BeaOut_1____' s(F)7'=' e('+-')0s(N)1s(N)2s('*/')3s(F)4s('+-')5e6 > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4> <BeaOut s5e6> ' | ' <BeaOut e8>
 		s(F)7'=' e('+-')0s(N)1s(N)2s('+-')3e4 '|' e8 = <PROUT 'BeaOut_2____' s(F)7'=' e('+-')0s(N)1s(N)2'_'s('+-')3e4  > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2 > <BeaOut s3e4> ' | ' <BeaOut e8>
 		s(F)7'=' e('+-')0s(N)1s(N)2 '|' e8 = <PROUT 'BeaOut_3____'s(F)7'=' e('+-')0s(N)1s(N)2  > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2> ' | ' <BeaOut e8>
-		s(F)7'=' e('+-')0s(N)1s(N)2s('*/')3s(F)4s('+-')5e6 = <PROUT 'BeaOut_3____' s(F)7'=' e('+-')0s(N)1s(N)2s('*/')3s(F)4s('+-')5e(('|'))6 > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4> <BeaOut s5e6>
-		s(F)7'=' e('+-')0s(N)1s(N)2s('+-')3e6 = <PROUT 'BeaOut_4____' s(F)7'=' e('+-')0s(N)1s(N)2  > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2 > <BeaOut s3e6>
-		s(F)7'=' e('+-')0s(N)1s(N)2 = <PROUT 'BeaOut_5____' s(F)7'=' e('+-')0s(N)1s(N)2  > <Ftochar s7>'=' <BOUT2  e('+-')0s(N)1s(N)2 >
-		s(F)7'=' e('+-')0s(N)1s(N)2'F'e6 = <PROUT 'BeaOut_5____' s(F)7'=' e('+-')0s(N)1s(N)2  > <Ftochar s7>'=' <BOUT2  e('+-')0s(N)1s(N)2 > <BeaOut 'F'e6 >
-		s(F)7'=' e('+-')0s(N)1s(N)2s('*/')3s(F)4 = <PROUT 'BeaOut_6____' e('+-')0s(N)1s(N)2s('*/')3s(F)4  > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4 >
-		s(F)7'=' e('+-')0s(N)1s(N)2s('*/')3s(F)4'F'e6 = <PROUT 'BeaOut_6____'  e('+-')0s(N)1s(N)2s('*/')3s(F)4  > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4 > <BeaOut 'F'e6 >
-		e('+-')0s(N)1s(N)2s('+-')3e(('|'))4 = <PROUT 'BeaOut_7____' > <BOUT2 e('+-')0s(N)1s(N)2><BeaOut s3e4>*look here
-		e('+-')0s(N)1s(N)2s('*/')3s(F)4s('+-')5e(('|'))6 = <PROUT 'BeaOut_8____'> <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4><BeaOut s5e6>*look here
-		e('+-')0s(N)1s(N)2 = <PROUT 'BeaOut_9____' > <BOUT2 e('+-')0s(N)1s(N)2>
-		e('+-')0s(N)1s(N)2s('*/')3s(F)4 = <PROUT 'BeaOut_10____'> <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4>
-		e('+-')0s(N)1s(N)2s('*/')3s(F)4'F'e6 = <PROUT 'BeaOut_11____'> <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4> <BeaOut 'F'e6 >
-		e('+-')0s(N)1s(N)2s('F')5e6 = <PROUT 'BeaOut_12____'> <BOUT2 e('+-')0s(N)1s(N)2> <BeaOut s5e6 >
+		s(F)7'=' e('+-')0s(N)1s(N)2s('*/')3s(F)4s('+-')5e6 = <PROUT 'BeaOut_4____' s(F)7'=' e('+-')0s(N)1s(N)2s('*/')3s(F)4s('+-')5e(('|'))6 > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4> <BeaOut s5e6>
+		s(F)7'=' e('+-')0s(N)1s(N)2s('+-')3e6 = <PROUT 'BeaOut_5____' s(F)7'=' e('+-')0s(N)1s(N)2  > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2 > <BeaOut s3e6>
+		s(F)7'=' e('+-')0s(N)1s(N)2 = <PROUT 'BeaOut_6____' s(F)7'=' e('+-')0s(N)1s(N)2  > <Ftochar s7>'=' <BOUT2  e('+-')0s(N)1s(N)2 >
+		s(F)7'=' e('+-')0s(N)1s(N)2'F'e6 = <PROUT 'BeaOut_7____' s(F)7'=' e('+-')0s(N)1s(N)2  > <Ftochar s7>'=' <BOUT2  e('+-')0s(N)1s(N)2 > <BeaOut 'F'e6 >
+		s(F)7'=' e('+-')0s(N)1s(N)2s('*/')3s(F)4 = <PROUT 'BeaOut_8____' e('+-')0s(N)1s(N)2s('*/')3s(F)4  > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4 >
+		s(F)7'=' e('+-')0s(N)1s(N)2s('*/')3s(F)4 '|' e8 = <PROUT 'BeaOut_9____' e('+-')0s(N)1s(N)2s('*/')3s(F)4  > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4 >	<BeaOut e8>
+		s(F)7'=' e('+-')0s(N)1s(N)2s('*/')3s(F)4'F'e6 = <PROUT 'BeaOut_10____'  e('+-')0s(N)1s(N)2s('*/')3s(F)4  > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4 > <BeaOut 'F'e6 >
+		e('+-')0s(N)1s(N)2s('+-')3e(('|'))4 = <PROUT 'BeaOut_11____' > <BOUT2 e('+-')0s(N)1s(N)2><BeaOut s3e4>*look here
+		e('+-')0s(N)1s(N)2s('*/')3s(F)4s('+-')5e(('|'))6 = <PROUT 'BeaOut_12____'> <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4><BeaOut s5e6>*look here
+		e('+-')0s(N)1s(N)2 = <PROUT 'BeaOut_13____' > <BOUT2 e('+-')0s(N)1s(N)2>
+		e('+-')0s(N)1s(N)2s('*/')3s(F)4 = <PROUT 'BeaOut_14____'> <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4>
+		e('+-')0s(N)1s(N)2s('*/')3s(F)4'F'e6 = <PROUT 'BeaOut_15____'> <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4> <BeaOut 'F'e6 >
+		e('+-')0s(N)1s(N)2s('F')5e6 = <PROUT 'BeaOut_16____'> <BOUT2 e('+-')0s(N)1s(N)2> <BeaOut s5e6 >
 		s('F')1e4 = <PROUT 'FREE_VAR__' e4>' '<FreeVar <OnlyOne2<OnlyOne1 e4>>>
 			=
 
 BOUT e('+-')3s((/0/)N)1s((/1/)N)2 = e('+-')3 <Symb s1>'/'<Symb s2>
 	 e('+-')3s((/0/)N)1/1/ = e('+-')3 <Symb s1>
-	 e('+-')3/0/s(N)2= '0'*after finish back to space or 0
+	 e('+-')3/0/s(N)2= *after finish back to space or 0
 
 	 e1=e1
 	 =
@@ -240,13 +241,16 @@ FreeVar s(F)1e2 = ' '<FtoChar s1> '=FreeVar '<FreeVar e2>
 Analyze 
 		
 		s(F)0'='e('+-')2s(N)3s(N)4 '|' e8 =  <PROUT 'AN_1 ' s(F)0'='e('+-')2s(N)3s(N)4 '|' e8> s(F)0'='e('+-')2s(N)3s(N)4 '|' <Analyze e8>
-		s(F)0'='e1s(F)6e2 '|' e8 =  <PROUT 'AN_2 ' s(F)0'='e1s(F)6e2 '|' e8 > s(F)0'='e1s(F)6e2 '|'  <Analyze e8> 'F's6	
-		s(F)0'='e1s(F)6e2  =  <PROUT 'AN_3 ' s(F)0'='e1s(F)6e2 > s(F)0'='e1s(F)6e2  'F's6	
+		s(F)0'='e1s(F)6e2 '|' e8 =  <PROUT 'AN_2 ' s(F)0'='e1s(F)6e2 '|' e8 > s(F)0'='e1s(F)6e2 '|'  <Analyze e8> <GetVar e2>'F's6	
+		s(F)0'='e1s(F)6e2  =  <PROUT 'AN_3 ' s(F)0'='e1s(F)6e2 > s(F)0'='e1s(F)6e2 <GetVar e2> 'F's6	
 		e('-+')0s((/0/)N)1s(N)2 = <PROUT 'AN_4 ' e('-+')0s(N)1s(N)2 > '!N'
 			 v('|')1= 'AVF'
 			 e1=e1
 			 
-
+GetVar  e1s(F)6e2 = <GetVar e2> 'F's6
+		 e1=e1
+		 =
+      
 FtoChar1 s(F)1e2=<FtoChar s1>
 	=
 Max (s1)s2 = <Mx (s1)s2 (<SUB (s1)s2>)>
