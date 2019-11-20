@@ -144,7 +144,8 @@ Step3 e4s(F)1'='e2 '|' e3 = <PROUT 'STEP3____= ' e4s(F)1'='e2 '|' e3 >e4s(F)1'='
 
 Substit (s(F)7'='e1)e4v(N'*/')3s(F)7e2'|'e6 =<PROUT 'SUBSTIT_1____' (s(F)7'='e1)e4v(N'*/')3S(F)7e2'|'e6>    <Count<OpnBrcCompl e4v(N'*/')3(e1)e2>>'|' <Substit (s(F)7'='e1) e6>
 	    (s(F)7'='e1)e('+-')9s(N)5s(N)6s('*/')8s(F)7e2 '|' e0 =<PROUT 'SUBSTIT_2____' (s(F)7'='e1)e('+-')9s(N)5s(N)6s('*/')8s(F)7e2> <Count<OpnBrcCompl e9s5s6s8(e1)e2 >> '|' <Substit (s(F)7'='e1) e0>
-		(s(F)7'='e1)e4e('+-')9s(N)5s(N)6s('*/')8S(F)7e2=<PROUT 'SUBSTIT_3____' (s(F)7'='e1)e4e('+-')9s(N)5s(N)6s('*/')8S(F)7e2> <Count<OpnBrcCompl e4e9s5s6s8(e1)e2 >>
+		(s(F)7'='e1)e(('|'))4e('+-')9s(N)5s(N)6s('*/')8S(F)7e2=<PROUT 'SUBSTIT_3____' (s(F)7'='e1)e4e('+-')9s(N)5s(N)6s('*/')8S(F)7e2> <Count<OpnBrcCompl e4e9s5s6s8(e1)e2 >>
+		*(s(F)7'='e1)v4e('+-')9s(N)5s(N)6s('*/')8S(F)7e2=<PROUT 'SUBSTIT_3____' (s(F)7'='e1)v4e('+-')9s(N)5s(N)6s('*/')8S(F)7e2> <Count<OpnBrcCompl v4e9s5s6s8(e1)e2 >>
 		(s(F)7'='e1)e4v(N'*/')3e('+-')9s(N)5s(N)6s('*/')8S(F)7e2 =<PROUT 'SUBSTIT_4____' (s(F)7'='e1)e4v(N'*/')3e('+-')9s(N)5s(N)6s('*/')8S(F)7e2> <Count<OpnBrcCompl e4v3e9s5s6s8(e1)e2 >>
 		
 
@@ -170,7 +171,7 @@ Step4 R 	e1 '|' s(F)2'='e3 '|' e('+-')4s(N)5s(N)6 = <PROUT 'STEP4____1=' e1 '|' 
 			e1=e1
 			  =
 MakeWhole s(F)7'='e1'|'e2 = <PROUT 'MakeWhole_1____' s(F)7'='e1 '|' e2> s(F)7'='<Cast e1> '|' <MakeWhole e2>
-		s(F)7'='e1 = <PROUT 'MakeWhole_2____' e1 > s(F)7'='<Cast e1>
+		  s(F)7'='e1 = <PROUT 'MakeWhole_2____' e1 > s(F)7'='<Cast e1>
 			e1=e1
 				= 
 
@@ -197,9 +198,9 @@ LMS   e('+-')0s(N)1s(N)2s('*/')3s(F)4s('+-')5e6 = <MakeSimple2 e0s1s2>s3s4s5<LMS
 
 BeaOut  'AVF' = 'All Vars Are Free'
 		e1 '|'e3'!N'e2 = <PROUT 'BeaOut_0' e1 '|'e3'!N'e2 >'ERROR No Solution Exists'
-		s(F)7'=' e('+-')0s(N)1s(N)2s('*/')3s(F)4s('+-')5e6 '|' e8 = <PROUT 'BeaOut_1____' s(F)7'=' e('+-')0s(N)1s(N)2s('*/')3s(F)4s('+-')5e6 > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4> <BeaOut s5e6> '|' <BeaOut e8>
-		s(F)7'=' e('+-')0s(N)1s(N)2s('+-')3e4 '|' e8 = <PROUT 'BeaOut_2____' s(F)7'=' e('+-')0s(N)1s(N)2'_'s('+-')3e4  > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2 > <BeaOut s3e4> '|' <BeaOut e8>
-		s(F)7'=' e('+-')0s(N)1s(N)2 '|' e8 = <PROUT 'BeaOut_3____'s(F)7'=' e('+-')0s(N)1s(N)2  > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2> '|' <BeaOut e8>
+		s(F)7'=' e('+-')0s(N)1s(N)2s('*/')3s(F)4s('+-')5e6 '|' e8 = <PROUT 'BeaOut_1____' s(F)7'=' e('+-')0s(N)1s(N)2s('*/')3s(F)4s('+-')5e6 > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4> <BeaOut s5e6> ' | ' <BeaOut e8>
+		s(F)7'=' e('+-')0s(N)1s(N)2s('+-')3e4 '|' e8 = <PROUT 'BeaOut_2____' s(F)7'=' e('+-')0s(N)1s(N)2'_'s('+-')3e4  > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2 > <BeaOut s3e4> ' | ' <BeaOut e8>
+		s(F)7'=' e('+-')0s(N)1s(N)2 '|' e8 = <PROUT 'BeaOut_3____'s(F)7'=' e('+-')0s(N)1s(N)2  > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2> ' | ' <BeaOut e8>
 		s(F)7'=' e('+-')0s(N)1s(N)2s('*/')3s(F)4s('+-')5e6 = <PROUT 'BeaOut_3____' s(F)7'=' e('+-')0s(N)1s(N)2s('*/')3s(F)4s('+-')5e(('|'))6 > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4> <BeaOut s5e6>
 		s(F)7'=' e('+-')0s(N)1s(N)2s('+-')3e6 = <PROUT 'BeaOut_4____' s(F)7'=' e('+-')0s(N)1s(N)2  > <Ftochar s7>'=' <BOUT2 e('+-')0s(N)1s(N)2 > <BeaOut s3e6>
 		s(F)7'=' e('+-')0s(N)1s(N)2 = <PROUT 'BeaOut_5____' s(F)7'=' e('+-')0s(N)1s(N)2  > <Ftochar s7>'=' <BOUT2  e('+-')0s(N)1s(N)2 >
@@ -212,7 +213,7 @@ BeaOut  'AVF' = 'All Vars Are Free'
 		e('+-')0s(N)1s(N)2s('*/')3s(F)4 = <PROUT 'BeaOut_10____'> <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4>
 		e('+-')0s(N)1s(N)2s('*/')3s(F)4'F'e6 = <PROUT 'BeaOut_11____'> <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4> <BeaOut 'F'e6 >
 		e('+-')0s(N)1s(N)2s('F')5e6 = <PROUT 'BeaOut_12____'> <BOUT2 e('+-')0s(N)1s(N)2> <BeaOut s5e6 >
-		s('F')1e4 = <PROUT 'FREE_VAR__' e4><FreeVar <OnlyOne2<OnlyOne1 e4>>>
+		s('F')1e4 = <PROUT 'FREE_VAR__' e4>' '<FreeVar <OnlyOne2<OnlyOne1 e4>>>
 			=
 
 BOUT e('+-')3s((/0/)N)1s((/1/)N)2 = e('+-')3 <Symb s1>'/'<Symb s2>
