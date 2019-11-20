@@ -21,7 +21,7 @@ file  e1 = <PRINT<reading <OPNGET e1>'@'>>
 reading '@'e1 = <reading <LIBGET>>
         R v1';'e2 = v1'|'<reading <LIBGET>>
         R v1'.'e2 = v1
-*start_to_search e1 = <put2kop e1'^'()><Backward<Forward<Step1 e1>>>
+*start_to_search e1 = <put2kop e1'^'()><Forward<Step1 e1>>
 start_to_search e1 = <put2kop e1'^'()><BeaOut<Analyze<BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>>>
 *start_to_search e1 = <put2kop e1'^'()><BeaOut<Analyze<BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>>>
 
@@ -107,8 +107,8 @@ Step2 e1  '|' e2 = <PROUT 'STEP_2____' e1'|'e2> <ExprVar e1> '|'e2
 	  
       
 ExprVar e('+-')0e(N)1s('*/')4s(F)2v3 = <PROUT 'ExprVar1___' e('+-')0e(N)1s('*/')4s(F)2v3>s2 '=' <GetSign<Count<OpnBrcCompl (<ChangeAllSigns v3>)'/'e0e1>>> <PROUT 'ExprVar1__=__'s2 '=' <GetSign<Count<OpnBrcCompl (<ChangeAllSigns v3>)'/'e0e1>>>>
-		v3e('+-')0s(N)5s(N)6s('*/')4s(F)2 = <PROUT 'ExprVar2___' v3e('+-')0s(N)5s(N)6s('*/')4s(F)2>s2 '=' <GetSign<Count<OpnBrcCompl (<ChangeAllSigns v3>)'/'e('+-')0s(N)5s(N)6>>> <PROUT 'ExprVar1__=__'s2 '=' <GetSign<Count<OpnBrcCompl (<ChangeAllSigns v3>)'/'e('+-')0s(N)5s(N)6>>>>
-		e('+-')0s(N)1s(N)2s('*/')3s(F)4 =  <PROUT 'ExprVar3___' e('+-')0s(N)1s(N)2s('*/')3s(F)4> s4 '=' /0//1/	
+		e('+-')0s(N)1s(N)2s('*/')3s(F)4 =  <PROUT 'ExprVar2___' e('+-')0s(N)1s(N)2s('*/')3s(F)4> s4 '=' /0//1/	
+		v3e('+-')0s((/0/)N)5s(N)6s('*/')4s(F)2 = <PROUT 'ExprVar3___' v3e('+-')0s(N)5s(N)6s('*/')4s(F)2>s2 '=' <GetSign<Count<OpnBrcCompl (<ChangeAllSigns v3>)'/'e('+-')0s(N)5s(N)6>>> <PROUT 'ExprVar1__=__'s2 '=' <GetSign<Count<OpnBrcCompl (<ChangeAllSigns v3>)'/'e('+-')0s(N)5s(N)6>>>>
 		e1=<PROUT 'ExprVar4___'e1>e1
 			  =
 
@@ -180,12 +180,13 @@ BMS s(F)7'='e1 '|'e2 = <PROUT 'BMS_1____' s(F)7 '=' e1 '|' e2> s(F)7'='<MakeSimp
 			=
 
 
-BeaOut  e1'|' '!N'e2 = 'ERROR: No solutions have'
+BeaOut  e1 '|'e3'!N'e2 = <PROUT 'Beaout1' e1 '|'e3'!N'e2 >'ERROR No Solution Exists'
 		s(F)7 '=' e('+-')1s(N)2s(N)3 '|'e4 = <PROUT 'BeaOut_1____' s(F)7 '=' e('+-')1s(N)2s(N)3 '|'e4> <Ftochar s7>'='<BOUT e('+-')1s(N)2s(N)3>' | '<BeaOut e4>
 		s(F)7'='e('+-')1s(N)2s(N)3 = <PROUT 'BeaOut_2____' s(F)7'='e1> <Ftochar s7>'='<BOUT e('+-')1s(N)2s(N)3>
 		s(F)7'='e('+-')1v(N)2s('*/')3s(F)4e('+-'N)5 '|' e6 = <PROUT 'BeaOut_3____' s(F)7'='e('+-')1v(N)2s('*/')3s(F)4e5> <Ftochar s7>'=' <BOUT2 e('+-')1v(N)2s('*/')3s(F)4e('+-'N)5 > '|' <Beaout e6>	
 	    e3'F'e(('!'))5 = <BeaOut 'F!'<OnlyOne e5>>
 		'F!'e4 = <FreeVar e4>
+			e1=e1
 			
 			=
 
@@ -203,9 +204,11 @@ FreeVar s(F)1e2 = <FtoChar s1> '=FreeVar '<FreeVar e2>
 		 =
 
 
-Analyze s(F)0'='e1e('+-')2s(N)3s(N)4s('*/')5s(F)6e7 '|' e8 =  <PROUT 'AN_1 ' s(F)0'='e1e('+-')2s(N)3s(N)4s('*/')5s(F)6e7 '|' e8> s(F)0'='e1e('+-')2s(N)3s(N)4s('*/')5s(F)6e7 '|'  <Analyze e8> 'F's6
-		e('-+')0s((/0/)N)1s(N)2 = <PROUT 'AN_2 ' e('-+')0s(N)1s(N)2 > '!N'		
-			 e1=<PROUT 'AN_3 ' e1>e1 
+Analyze 
+		s(F)0'='e1e('+-')2s(N)3s(N)4 '|' e8 =  <PROUT 'AN_1 ' s(F)0'='e1e('+-')2s(N)3s(N)4 '|' e8> s(F)0'='e1e('+-')2s(N)3s(N)4 '|' <Analyze e8>
+		s(F)0'='e1e('+-')2s(N)3s(N)4s('*/')5s(F)6e7 '|' e8 =  <PROUT 'AN_2 ' s(F)0'='e1e('+-')2s(N)3s(N)4s('*/')5s(F)6e7 '|' e8> s(F)0'='e1e('+-')2s(N)3s(N)4s('*/')5s(F)6e7 '|'  <Analyze e8> 'F's6
+		e('-+')0s((/0/)N)1s(N)2 = <PROUT 'AN_3 ' e('-+')0s(N)1s(N)2 > '!N'		
+			 
 
 FtoChar1 s(F)1e2=<FtoChar s1>
 	=
