@@ -199,7 +199,7 @@ BeaOut  e1 '|'e3'!N'e2 = <PROUT 'BeaOut_0' e1 '|'e3'!N'e2 >'ERROR No Solution Ex
 		e('+-')0s(N)1s(N)2s('*/')3s(F)4 = <PROUT 'BeaOut_10____'> <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4>
 		e('+-')0s(N)1s(N)2s('*/')3s(F)4'F'e6 = <PROUT 'BeaOut_11____'> <BOUT2 e('+-')0s(N)1s(N)2s('*/')3s(F)4> <BeaOut 'F'e6 >
 		e('+-')0s(N)1s(N)2s('F')5e6 = <PROUT 'BeaOut_12____'> <BOUT2 e('+-')0s(N)1s(N)2> <BeaOut s5e6 >
-		s('F')1e4 = <FreeVar <OnlyOne2<OnlyOne1 e4>>>
+		s('F')1e4 = <PROUT 'FREE_VAR__' e4><FreeVar <OnlyOne2<OnlyOne1 e4>>>
 			
 
 
@@ -217,10 +217,10 @@ BOUT2  e('+-')1v(N)2s('*/')3s(F)4e5 = <PROUT 'BOUT2__'><BOUT e('+-')1v(N)2> s3 <
 	   e('+-')1s(N)2s(N)3 = <BOUT  e('+-')1s(N)2s(N)3 >
 	    =
 OnlyOne1 	e2'F'e3 =<OnlyOne1 e2e3>
-				e1=e1
+				e1=<PROUT 'OO1' e1>e1
 				=	
-OnlyOne2 s(F)1e2s(F)1e3 =<OnlyOne2 s1e2e3>
-			e1=e1
+OnlyOne2 e0s(F)1e2s(F)1e3 =<OnlyOne2 e0s1e2e3>
+			e1=e1<PROUT '002' e1>
 			=
 
 
