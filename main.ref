@@ -128,8 +128,9 @@ OpnBrcCompl  e('+-')4s(N)6s('*/')5(e2)e3 = <PROUT 'O1____'> <GetSign<Count<OpenB
 
 PutInsideL (e('+-')4v(N)3v(F'/*')8s('+-')1e2)s('*/')5e('+-')7s(FN)6s(FN)9 = <PROUT 'L1___'(e('+-')4v(N)3v(F'/*')8s('+-')1e2)s('*/')5e('+-')7s(FN)6s(FN)9> e4v3s5e7s6s9v8<PROUT 'L1=__'e4v3s5e7s6s9v8 ><PutInsideL (s1e2)s5e7s6s9>	  
 		   (e('+-')4v(N)3v(F'/*')8)s('*/')5e('+-')7s(FN)6s(FN)9 = <PROUT 'L2___' (e('+-')4v(N)3v(F'/*')8)s('*/')5e('+-')7s(FN)6s(FN)9> e4v3s5e7s6s9v8 <PROUT 'L2=__'e4v3s5e7s6s9v8>
-		   (e('+-')4v(N)3)s('*/')5e('+-')7s(FN)6s(FN)9 = <PROUT 'L3___' (e('+-')4v(N)3)s('*/')5e('+-')7s(FN)6s(FN)9> e4v3s5e7s6s9 <PROUT 'L3=__'e4v3s5e7s6s9>
-			   e1=<PROUT 'PutInsideL ERROR'>
+		   (e('+-')4v(N)3s('+-')1e2)s('*/')5e('+-')7s(FN)6s(FN)9 = <PROUT 'L3___' (e('+-')4v(N)3)s('*/')5e('+-')7s(FN)6s(FN)9> e4v3s5e7s6s9 <PutInsideL (s1e2)s5e7s6s9>  <PROUT 'L3=__'e4v3s5e7s6s9>
+		   (e('+-')4v(N)3)s('*/')5e('+-')7s(FN)6s(FN)9 = <PROUT 'L4___' (e('+-')4v(N)3)s('*/')5e('+-')7s(FN)6s(FN)9> e4v3s5e7s6s9 <PROUT 'L4=__'e4v3s5e7s6s9>
+			   e1=<PROUT 'PutInsideL ERROR' e1>
 
 PutInsideR e('+-')7s(FN)6s(FN)9s('*/')5(e('+-')4v(N)3v(F'/*')8s('+-')1e2) = <PROUT 'R1____' e('+-')7s(FN)6s(FN)9s('*/')5(e('+-')4v(N)3v(F'/*')8s('+-')1e2)><GetSign e4e7s6s9s5v3v8><PROUT 'R1=__'e4e7s6s9s5v3v8><PutInsideR e7s6s9s5(s1e2)>
 		   e('+-')7s(FN)6s(FN)9s('*/')5(e('+-')4v(N)3v(F'/*')8) = <PROUT 'R2____' e('+-')7s(FN)6s(FN)9s('*/')5(e('+-')4v(N)3v(F'/*')8)><Getsign e4e7s6s9s5v3v8> <PROUT 'R2=__'e4e7s6s9s5v3v8>
@@ -180,13 +181,15 @@ BMS s(F)7'='e1 '|'e2 = <PROUT 'BMS_1____' s(F)7 '=' e1 '|' e2> s(F)7'='<MakeSimp
 			=
 
 
-BeaOut  e1 '|'e3'!N'e2 = <PROUT 'Beaout1' e1 '|'e3'!N'e2 >'ERROR No Solution Exists'
+BeaOut  e1 '|'e3'!N'e2 = <PROUT 'BeaOut_0' e1 '|'e3'!N'e2 >'ERROR No Solution Exists'
 		s(F)7 '=' e('+-')1s(N)2s(N)3 '|'e4 = <PROUT 'BeaOut_1____' s(F)7 '=' e('+-')1s(N)2s(N)3 '|'e4> <Ftochar s7>'='<BOUT e('+-')1s(N)2s(N)3>' | '<BeaOut e4>
-		s(F)7'='e('+-')1s(N)2s(N)3 = <PROUT 'BeaOut_2____' s(F)7'='e1> <Ftochar s7>'='<BOUT e('+-')1s(N)2s(N)3>
-		s(F)7'='e('+-')1v(N)2s('*/')3s(F)4e('+-'N)5 '|' e6 = <PROUT 'BeaOut_3____' s(F)7'='e('+-')1v(N)2s('*/')3s(F)4e5> <Ftochar s7>'=' <BOUT2 e('+-')1v(N)2s('*/')3s(F)4e('+-'N)5 > '|' <Beaout e6>	
-	    e3'F'e(('!'))5 = <BeaOut 'F!'<OnlyOne e5>>
-		'F!'e4 = <FreeVar e4>
-			e1=e1
+		s(F)7'='e('+-')1v(N)2s('*/')3s(F)4e('+-'N)5 '|' e6 = <PROUT 'BeaOut_2____' s(F)7'='e('+-')1v(N)2s('*/')3s(F)4e5> <Ftochar s7>'=' <BOUT2 e('+-')1v(N)2s('*/')3s(F)4e('+-'N)5 > '|' <Beaout e6>
+		s(F)7'=' e('+-')4v(N)3s('+-')1e2 = <PROUT 'BeaOut_3____' s(F)7'=' e('+-')4v(N)3s('+-')1e2'F'e4> <Ftochar s7>'=' <BOUT2 e('+-')4v(N)3><BeaOut s1e2>
+	    e('+-')1v(N)2s('*/')3s(F)4'F'e5 = <PROUT 'BeaOut_4____' e('+-')1v(N)2s('*/')3s(F)4'F'e5><BOUT2 e('+-')1v(N)2s('*/')3s(F)4><BeaOut 'F'e5>
+		s('F')1e4 = <FreeVar <OnlyOne e4>>
+
+
+
 			
 			=
 
@@ -199,15 +202,19 @@ BOUT2  e('+-')1v(N)2s('*/')3s(F)4e5 = <BOUT e('+-')1v(N)2> s3 <Ftochar s4> <BOUT
 		e('+-')1s(N)2s(N)3 = <BOUT  e('+-')1s(N)2s(N)3 >
 	   =
 OnlyOne s(F)1e2'F's(F)1e3 =s1<OnlyOne e2e3>
-		  = 
-FreeVar s(F)1e2 = <FtoChar s1> '=FreeVar '<FreeVar e2>
+		  s(F)1=s(F)1 
+		  =
+FreeVar s(F)1e2 = ' '<FtoChar s1> '=FreeVar '<FreeVar e2>
 		 =
 
 
 Analyze 
-		s(F)0'='e1e('+-')2s(N)3s(N)4 '|' e8 =  <PROUT 'AN_1 ' s(F)0'='e1e('+-')2s(N)3s(N)4 '|' e8> s(F)0'='e1e('+-')2s(N)3s(N)4 '|' <Analyze e8>
-		s(F)0'='e1e('+-')2s(N)3s(N)4s('*/')5s(F)6e7 '|' e8 =  <PROUT 'AN_2 ' s(F)0'='e1e('+-')2s(N)3s(N)4s('*/')5s(F)6e7 '|' e8> s(F)0'='e1e('+-')2s(N)3s(N)4s('*/')5s(F)6e7 '|'  <Analyze e8> 'F's6
-		e('-+')0s((/0/)N)1s(N)2 = <PROUT 'AN_3 ' e('-+')0s(N)1s(N)2 > '!N'		
+		
+		s(F)0'='e('+-')2s(N)3s(N)4 '|' e8 =  <PROUT 'AN_1 ' s(F)0'='e('+-')2s(N)3s(N)4 '|' e8> s(F)0'='e('+-')2s(N)3s(N)4 '|' <Analyze e8>
+		s(F)0'='e1s(F)6e2 '|' e8 =  <PROUT 'AN_2 ' s(F)0'='e1s(F)6e2 '|' e8 > s(F)0'='e1s(F)6e2 '|'  <Analyze e8> 'F's6	
+		*s(F)0'='e('+-')2s(N)3s(N)4s('*/')5s(F)6e7 '|' e8 =  <PROUT 'AN_2 ' s(F)0'='e1e('+-')2s(N)3s(N)4s('*/')5s(F)6e7 '|' e8> s(F)0'='e1e('+-')2s(N)3s(N)4s('*/')5s(F)6e7 '|'  <Analyze e8> 'F's6
+		s(F)0'='e1s(F)6e2  =  <PROUT 'AN_3 ' s(F)0'='e1s(F)6e2 > s(F)0'='e1s(F)6e2  'F's6	
+		e('-+')0s((/0/)N)1s(N)2 = <PROUT 'AN_4 ' e('-+')0s(N)1s(N)2 > '!N'		
 			 
 
 FtoChar1 s(F)1e2=<FtoChar s1>
