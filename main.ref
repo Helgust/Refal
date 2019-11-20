@@ -142,10 +142,12 @@ Step3 e4s(F)1'='e2 '|' e3 = <PROUT 'STEP3____= ' e4s(F)1'='e2 '|' e3 >e4s(F)1'='
 	   e1=e1
 	    =
 
-Substit (s(F)7'='e1)e4v(N'*/')3S(F)7e2'|'e6 =<PROUT 'SUBSTIT_1____' (s(F)7'='e1)e4v(N'*/')3S(F)7e2'|'e6>    <Count<OpnBrcCompl e4v(N'*/')3(e1)e2>>'|' <Substit (s(F)7'='e1) e6>
-		(s(F)7'='e1)e4v(N'*/')3e('+-')9s(N)5s(N)6s('*/')8S(F)7e2 =<PROUT 'SUBSTIT_2____' (s(F)7'='e1)e4v(N'*/')3e('+-')9s(N)5s(N)6s('*/')8S(F)7e2> <Count<OpnBrcCompl e4v3e9s5s6s8(e1)e2 >>
-		(s(F)7'='e1)e('+-')9s(N)5s(N)6s('*/')8S(F)7e2 =<PROUT 'SUBSTIT_3____' (s(F)7'='e1)e('+-')9s(N)5s(N)6s('*/')8S(F)7e2> <Count<OpnBrcCompl e9s5s6s8(e1)e2 >>
-			(s(F)7'='e1)e4v(N'*/')3=<PROUT 'SUBSTIT_4____'(s(F)7'='e1)e4v(N'*/')3> e4v(N'*/')3
+Substit (s(F)7'='e1)e4v(N'*/')3s(F)7e2'|'e6 =<PROUT 'SUBSTIT_1____' (s(F)7'='e1)e4v(N'*/')3S(F)7e2'|'e6>    <Count<OpnBrcCompl e4v(N'*/')3(e1)e2>>'|' <Substit (s(F)7'='e1) e6>
+	    (s(F)7'='e1)e('+-')9s(N)5s(N)6s('*/')8s(F)7e2 '|' e0 =<PROUT 'SUBSTIT_2____' (s(F)7'='e1)e('+-')9s(N)5s(N)6s('*/')8s(F)7e2> <Count<OpnBrcCompl e9s5s6s8(e1)e2 >> '|' <Substit (s(F)7'='e1) e0>
+		(s(F)7'='e1)e4e('+-')9s(N)5s(N)6s('*/')8S(F)7e2=<PROUT 'SUBSTIT_3____' (s(F)7'='e1)e4e('+-')9s(N)5s(N)6s('*/')8S(F)7e2> <Count<OpnBrcCompl e4e9s5s6s8(e1)e2 >>
+		(s(F)7'='e1)e4v(N'*/')3e('+-')9s(N)5s(N)6s('*/')8S(F)7e2 =<PROUT 'SUBSTIT_4____' (s(F)7'='e1)e4v(N'*/')3e('+-')9s(N)5s(N)6s('*/')8S(F)7e2> <Count<OpnBrcCompl e4v3e9s5s6s8(e1)e2 >>
+		
+
 				(s(F)7'='e1)e2= <PROUT 'SUBSTIT_5____' e2 >e2
 					=
 
@@ -181,10 +183,16 @@ MakeSimple2 e('+-')3s((/0/)N)1s(N)2 =<PROUT 'MakeSimple2_1____' e('+-')3s((/0/)N
 					e1=e1
 				   =
 
-BMS s(F)7'='e1 '|'e2 = <PROUT 'BMS_1____' s(F)7 '=' e1 '|' e2> s(F)7'='<MakeSimple2 e1> '|' <BMS e2>
-		s(F)7'='e1 = <PROUT 'BMS_2____' s(F)7'='e1> s(F)7'='<MakeSimple2 e1> 
+BMS s(F)7'='e1 '|'e2 = <PROUT 'BMS_1____' s(F)7 '=' e1 '|' e2> s(F)7'='<LMS e1> '|' <BMS e2>
+		s(F)7'='e1 = <PROUT 'BMS_2____' s(F)7'='e1> s(F)7'='<LMS e1> 
 			e1=e1
 			=
+LMS   e('+-')0s(N)1s(N)2s('*/')3s(F)4s('+-')5e6 = <MakeSimple2 e0s1s2>s3s4s5<LMS e6>
+	  e('+-')0s(N)1s(N)2s('+-')5e6 = <MakeSimple2 e0s1s2>s5<LMS e6>
+	  e('+-')0s(N)1s(N)2s('*/')3s(F)4 = <MakeSimple2 e0s1s2>s3s4
+	  e('+-')0s(N)1s(N)2 = <MakeSimple2 e0s1s2>
+		  e1=e1
+		  =
 
 
 BeaOut  'AVF' = 'All Vars Are Free'
@@ -235,6 +243,7 @@ Analyze
 		s(F)0'='e1s(F)6e2  =  <PROUT 'AN_3 ' s(F)0'='e1s(F)6e2 > s(F)0'='e1s(F)6e2  'F's6	
 		e('-+')0s((/0/)N)1s(N)2 = <PROUT 'AN_4 ' e('-+')0s(N)1s(N)2 > '!N'
 			 v('|')1= 'AVF'
+			 e1=e1
 			 
 
 FtoChar1 s(F)1e2=<FtoChar s1>
