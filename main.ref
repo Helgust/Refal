@@ -10,31 +10,31 @@ SLAU START
 
 go = <main>
 
-main  = <proceed <CARD 'input the text file name: '>><CLSGET>
+main  = <begin <CARD 'input the text file name: '>><CLSGET>
 
 
-proceed e1 =  <start_to_search<file e1>>    
+begin e1 =  <start<file e1>>    
      
 file  e1 = <PRINT<reading <OPNGET e1>'@'>> 
 
 reading '@'e1 = <reading <LIBGET>>
         R v1';'e2 = v1'|'<reading <LIBGET>>
         R v1'.'e2 = v1
-*start_to_search e1 = <Backward<Forward<Step1 e1>>>
-*start_to_search e1 = <BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>
-*start_to_search e1 = <Analyze<BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>>
-start_to_search e1 = <Back0<BeaOut<Analyze<AVF<BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>>>>>
+*start e1 = <Backward<Forward<Step1 e1>>>
+*start e1 = <BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>
+*start e1 = <Analyze<BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>>
+start e1 = <Back0<BeaOut<Analyze<AVF<BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>>>>>
 
 
-Step1 e1 '=' e3 '|' e4  = <Cast<DoMetki e1><ChangeAllSigns<DoMetki e3>>>'|'<Step1 e4>
-      e1'='e3 = <Cast<DoMetki e1><ChangeAllSigns<DoMetki e3>>>
+Step1 e1 '=' e3 '|' e4  = <Cast<DoMarks e1><ChangeAllSigns<DoMarks e3>>>'|'<Step1 e4>
+      e1'='e3 = <Cast<DoMarks e1><ChangeAllSigns<DoMarks e3>>>
       e2 = <PROUT 'error'>
 
 
-DoMetki e((D))0v(D)1v((D))3e2 = <DoMetki e0<Numb v1>/1/v3e2>
-		e((L))0v(L)1v((L))3e2 = <DoMetki e0<Chartof v1>v3e2>
-		e((D))0v(D)1 = <DoMetki e0<Numb v1>/1/>
-		e((L))0v(L)1 = <DoMetki e0<Chartof v1>>
+DoMarks e((D))0v(D)1v((D))3e2 = <PROUT 'DM1__ ' e((D))0v(D)1v((D))3e2><DoMarks e0<Numb v1>/1/v3e2>
+		e((L))0v(L)1v((L))3e2 = <PROUT 'DM2__' e((L))0v(L)1v((L))3e2><DoMarks e0/1//1/'*'<Chartof v1>v3e2>
+		e((D))0v(D)1 = <PROUT 'DM3__' e((D))0v(D)1> <DoMarks e0<Numb v1>/1/>
+		e((L))0v(L)1 = <PROUT 'DM4__' e((L))0v(L)1><DoMarks e0/1//1/'*'<Chartof v1>>
 		e1 = <Count<GetSign<OpenBrackets<Count<ChangeBrackets1 e1>>>>>
         
 ChangeBrackets1 e1')'e2 = <ChangeBrackets1<ChangeBrackets2 e1>e2>
@@ -257,13 +257,14 @@ Back0 s(L)1'=' ' | ' e2  =   s(L)1'=' '0' ' | ' <Back0 e2>
 		s(L)1'=' = s(L)1'=0'
 		e1=e1
 		 =
+Nod (s1)s1 = s1
+    (s1)s2 = <Nod (<Min (s1)s2>) <SUB (<Max(s1)s2>)<Min (s1)s2>>>
 Max (s1)s2 = <Mx (s1)s2 (<SUB (s1)s2>)>
 Mx (s1)s2('-'s3) = s2
   (s1)s2(s3) = s1
 Min (s1)s2 = <Mn (s1)s2 (<SUB (s1)s2>)>
 Mn (s1)s2('-'s3) = s1
   (s1)s2(s3) = s2
-Nod (s1)s1 = s1
-    (s1)s2 = <Nod (<Min (s1)s2>) <SUB (<Max(s1)s2>)<Min (s1)s2>>>
+
  end
 
