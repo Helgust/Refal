@@ -23,6 +23,7 @@ reading '@'e1 = <reading <LIBGET>>
         R v1'.'e2 = v1
 *start_to_search e1 = <put2kop e1'^'()><Backward<Forward<Step1 e1>>>
 *start_to_search e1 = <put2kop e1'^'()><BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>
+*start_to_search e1 = <put2kop e1'^'()><Analyze<BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>>
 start_to_search e1 = <put2kop e1'^'()><BeaOut<Analyze<BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>>>
 
 put2kop e2s(L)Ae2'^'() = <put2kop e2 '^'(sA)>
@@ -241,14 +242,14 @@ FreeVar s(F)1e2 = ' '<FtoChar s1> '=FreeVar '<FreeVar e2>
 Analyze 
 		
 		s(F)0'='e('+-')2s(N)3s(N)4 '|' e8 =  <PROUT 'AN_1 ' s(F)0'='e('+-')2s(N)3s(N)4 '|' e8> s(F)0'='e('+-')2s(N)3s(N)4 '|' <Analyze e8>
-		s(F)0'='e1s(F)6e2 '|' e8 =  <PROUT 'AN_2 ' s(F)0'='e1s(F)6e2 '|' e8 > s(F)0'='e1s(F)6e2 '|'  <Analyze e8> <GetVar e2>'F's6	
-		s(F)0'='e1s(F)6e2  =  <PROUT 'AN_3 ' s(F)0'='e1s(F)6e2 > s(F)0'='e1s(F)6e2 <GetVar e2> 'F's6	
+		s(F)0'='e1s(F)6e2 '|' e8 =  <PROUT 'AN_2 ' s(F)0'='e1s(F)6e2 '|' e8 > s(F)0'='e1s(F)6e2 '|'  <Analyze e8> 'F's6 <GetVar e2>	
+		s(F)0'='e1s(F)6e2  =  <PROUT 'AN_3 ' s(F)0'='e1s(F)6e2 > s(F)0'='e1s(F)6e2  'F's6 <GetVar e2>	
 		e('-+')0s((/0/)N)1s(N)2 = <PROUT 'AN_4 ' e('-+')0s(N)1s(N)2 > '!N'
-			 v('|')1= 'AVF'
+			 v('|'/0//1/'+-')1= 'AVF'
 			 e1=e1
 			 
 GetVar  e1s(F)6e2 = <GetVar e2> 'F's6
-		 e1=e1
+		e1=
 		 =
       
 FtoChar1 s(F)1e2=<FtoChar s1>
