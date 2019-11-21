@@ -24,7 +24,7 @@ reading '@'e1 = <reading <LIBGET>>
 *start_to_search e1 = <put2kop e1'^'()><Backward<Forward<Step1 e1>>>
 *start_to_search e1 = <put2kop e1'^'()><BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>
 *start_to_search e1 = <put2kop e1'^'()><Analyze<BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>>
-start_to_search e1 = <put2kop e1'^'()><BeaOut<Analyze<BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>>>
+start_to_search e1 = <put2kop e1'^'()><Back0<BeaOut<Analyze<AVF<BMS<MakeWhole<Backward<Forward<Step1 e1>>>>>>>>>
 
 put2kop e2s(L)Ae2'^'() = <put2kop e2 '^'(sA)>
            e1s(L)Ae2 '^'(e3sAe4) = <put2kop e1e2 '^'(e3sAe4)>
@@ -143,14 +143,14 @@ Step3 e4s(F)1'='e2 '|' e3 = <PROUT 'STEP3____= ' e4s(F)1'='e2 '|' e3 >e4s(F)1'='
 	   e1=e1
 	    =
 
-Substit (s(F)7'='e1)e4v(N'*/')3s(F)7e2'|'e6 =<PROUT 'SUBSTIT_1____' (s(F)7'='e1)e4v(N'*/')3S(F)7e2'|'e6>    <Count<OpnBrcCompl e4v(N'*/')3(e1)e2>>'|' <Substit (s(F)7'='e1) e6>
-	    (s(F)7'='e1)e('+-')9s(N)5s(N)6s('*/')8s(F)7e2 '|' e0 =<PROUT 'SUBSTIT_2____' (s(F)7'='e1)e('+-')9s(N)5s(N)6s('*/')8s(F)7e2> <Count<OpnBrcCompl e9s5s6s8(e1)e2 >> '|' <Substit (s(F)7'='e1) e0>
-		(s(F)7'='e1)e(('|'))4e('+-')9s(N)5s(N)6s('*/')8S(F)7e2=<PROUT 'SUBSTIT_3____' (s(F)7'='e1)e4e('+-')9s(N)5s(N)6s('*/')8S(F)7e2> <Count<OpnBrcCompl e4e9s5s6s8(e1)e2 >>
-		*(s(F)7'='e1)v4e('+-')9s(N)5s(N)6s('*/')8S(F)7e2=<PROUT 'SUBSTIT_3____' (s(F)7'='e1)v4e('+-')9s(N)5s(N)6s('*/')8S(F)7e2> <Count<OpnBrcCompl v4e9s5s6s8(e1)e2 >>
-		(s(F)7'='e1)e4v(N'*/')3e('+-')9s(N)5s(N)6s('*/')8S(F)7e2 =<PROUT 'SUBSTIT_4____' (s(F)7'='e1)e4v(N'*/')3e('+-')9s(N)5s(N)6s('*/')8S(F)7e2> <Count<OpnBrcCompl e4v3e9s5s6s8(e1)e2 >>
-		
-
-				(s(F)7'='e1)e2= <PROUT 'SUBSTIT_5____' e2 >e2
+Substit (s(F)7'='e1)e(('|'))4v(FN'*/')3s(F)7e(('|'))2'|'e6 =<PROUT 'SUBSTIT_1____' (s(F)7'='e1)e4v(N'*/')3S(F)7e2'|'e6>    <Count<OpnBrcCompl e4v(N'*/')3(e1)e2>>'|' <Substit (s(F)7'='e1) e6>*Forward case
+	    (s(F)7'='e1)e('+-')9s(N)5s(N)6s('*/')8s(F)7e(('|'))2 '|' e0 =<PROUT 'SUBSTIT_2____' (s(F)7'='e1)e('+-')9s(N)5s(N)6s('*/')8s(F)7e2> <Count<OpnBrcCompl e9s5s6s8(e1)e2 >> '|' <Substit (s(F)7'='e1) e0>
+		(s(F)7'='e1)e(('|'))4e('+-')9s(N)5s(N)6s('*/')8S(F)7e(('|'))2=<PROUT 'SUBSTIT_3____' (s(F)7'='e1)e2> <Count<OpnBrcCompl e4e9s5s6s8(e1)e2 >>
+		(s(F)7'='e1) s(F)0'='e(('|'))4v(FN'*/')3s(F)7e(('|'))2'|'e6	= <PROUT 'SUBSTIT_4____' s(F)0'='e(('|='))4v(FN'*/')3s(F)7e(('|'))2'|'e6>    <Count<OpnBrcCompl s0'='e4v(N'*/')3(e1)e2>>'|' <Substit (s(F)7'='e1) e6>*bACKward case
+		(s(F)7'='e1) s(F)0'='e('+-')9s(N)5s(N)6s('*/')8s(F)7e(('|'))2'|'eA	= <PROUT 'SUBSTIT_5____'s(F)0'='e('+-')9s(N)5s(N)6s('*/')8s(F)7e(('|'))2'|'eA>    <Count<OpnBrcCompl s0'='e9s5s6s8(e1)e2>>'|' <Substit (s(F)7'='e1) eA>*bACKward case	
+		*(s(F)7'='e1)e(('|'))4v(N'*/')3e('+-')9s(N)5s(N)6s('*/')8S(F)7e2 =<PROUT 'SUBSTIT_6____' (s(F)7'='e1)e4v(N'*/')3e('+-')9s(N)5s(N)6s('*/')8S(F)7e2> <Count<OpnBrcCompl e4v3e9s5s6s8(e1)e2 >>
+		(s(F)7'='e1) e2 '|' e3 = e2 '|' <Substit (s(F)7'='e1) e3>
+			(s(F)7'='e1)e2= <PROUT 'SUBSTIT_last____' (s(F)7'='e1) e2 >e2
 					=
 
 
@@ -245,8 +245,9 @@ Analyze
 		s(F)0'='e1s(F)6e2 '|' e8 =  <PROUT 'AN_2 ' s(F)0'='e1s(F)6e2 '|' e8 > s(F)0'='e1s(F)6e2 '|'  <Analyze e8> 'F's6 <GetVar e2>	
 		s(F)0'='e1s(F)6e2  =  <PROUT 'AN_3 ' s(F)0'='e1s(F)6e2 > s(F)0'='e1s(F)6e2  'F's6 <GetVar e2>	
 		e('-+')0s((/0/)N)1s(N)2 = <PROUT 'AN_4 ' e('-+')0s(N)1s(N)2 > '!N'
-			 v('|'/0//1/'+-')1= 'AVF'
 			 e1=e1
+AVF  v('|'/0//1/'+-')1= 'AVF'
+		e1=e1
 			 
 GetVar  e1s(F)6e2 = <GetVar e2> 'F's6
 		e1=
@@ -254,6 +255,10 @@ GetVar  e1s(F)6e2 = <GetVar e2> 'F's6
       
 FtoChar1 s(F)1e2=<FtoChar s1>
 	=
+Back0 s(L)1'=' ' | ' e2  =   s(L)1'=' '0' ' | ' <Back0 e2>
+		s(L)1'=' = s(L)1'=0'
+		e1=e1
+		 =
 Max (s1)s2 = <Mx (s1)s2 (<SUB (s1)s2>)>
 Mx (s1)s2('-'s3) = s2
   (s1)s2(s3) = s1
